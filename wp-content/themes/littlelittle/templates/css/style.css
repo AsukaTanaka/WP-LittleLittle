@@ -360,7 +360,7 @@ textarea {
 .site-section div.row-center.row-without-lgt .d-content {
     display: block;
     width: 100%;
-    padding: 40px 0 34px;
+    padding: 45px 0 30px;
 }
 
 .site-section div.row-center.row-without-lgt .d-content > h4 {
@@ -373,7 +373,7 @@ textarea {
     align-items: center;
     justify-content: space-between;
     float: left;
-    padding: 40px 0 34px;
+    padding: 45px 0 30px;
 }
 
 .site-section div.row-block.row-lgt .d-content > h4 {
@@ -1588,7 +1588,7 @@ textarea {
         display: block;
         max-width: 100%;
         width: 100%;
-        padding: 40px 0 34px;
+        padding: 45px 0 30px;
         float: none !important;
 
     }
@@ -1620,6 +1620,3 @@ textarea {
         font-size: 2.5rem !important;
     }
 }
-
-
- 
