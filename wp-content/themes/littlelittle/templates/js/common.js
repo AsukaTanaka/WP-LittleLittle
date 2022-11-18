@@ -175,6 +175,46 @@ function formContact() {
     comment.placeholder = "Lời nhắn";
 }
 
+function swiperSlider() {
+    new Swiper('.slider-event .swiper', {
+        spaceBetween: 20,
+        slidesPerView: 4,
+        loop: false,
+        autoHeight: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            0 : {
+                slidesPerView: 1,
+            }, 
+            425 : {
+                slidesPerView: 1.25,
+            },
+            500 : {
+                slidesPerView: 1.5,
+            },
+            567 : {
+                slidesPerView: 2,
+            }, 
+            768 : {
+                slidesPerView: 3,
+            }, 
+            991 : {
+                slidesPerView: 3,
+            }, 
+            1200 : {
+                slidesPerView: 4,
+            }
+        },
+    });
+}
+
 /**
  * Show Function
  */
@@ -199,4 +239,8 @@ if(document.getElementById('js-datepick')) {
 
 if(document.getElementById('js-form-contact')) {
     formContact();
+}
+
+if(document.getElementById('js-slider-event')) {
+    swiperSlider();
 }
