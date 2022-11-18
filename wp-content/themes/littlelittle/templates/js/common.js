@@ -213,6 +213,64 @@ function swiperSlider() {
             }
         },
     });
+    new Swiper('.slider-success .swiper', {
+        spaceBetween: 20,
+        slidesPerView: 4,
+        loop: false,
+        autoHeight: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction',
+            renderFraction: function (currentClass, totalClass) {
+                return 'Trang&nbsp;' + '<span class="' + currentClass + '"></span>' + '/' + '<span class="' + totalClass + '"></span>';
+            },
+        },
+        on: {
+            init: function (sw) {
+                var totalPages = document.querySelector('.row-section-success #total-pages');
+                totalPages.innerHTML = 'Số lượng: ' + sw.slides.length + ' vé';
+            },
+        },
+        centeredSlides: false,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            0 : {
+                slidesPerView: 1,
+                centeredSlides: false,
+            }, 
+            425 : {
+                slidesPerView: 1.45,
+                centeredSlides: true,
+            },
+            550 : {
+                slidesPerView: 2,
+                centeredSlides: false,
+            },
+            567 : {
+                slidesPerView: 2,
+                centeredSlides: false,
+            }, 
+            768 : {
+                slidesPerView: 3,
+                centeredSlides: false,
+            }, 
+            991 : {
+                slidesPerView: 3,
+                centeredSlides: false,
+            }, 
+            1200 : {
+                slidesPerView: 4,
+                centeredSlides: false,
+            }
+        },
+    });
 }
 
 /**
@@ -241,6 +299,6 @@ if(document.getElementById('js-form-contact')) {
     formContact();
 }
 
-if(document.getElementById('js-slider-event')) {
+if(document.getElementById('js-slider-event') || document.getElementById('js-slider-success')) {
     swiperSlider();
 }
