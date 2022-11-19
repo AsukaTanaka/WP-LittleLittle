@@ -333,7 +333,7 @@ textarea {
 
 .site-section .bg-vector {
     position: relative;
-    max-width: 1350px;
+    max-width: 1300px;
     margin: auto;
     width: 100%;
     min-height: 37rem;
@@ -345,6 +345,7 @@ textarea {
     border-radius: 0 0 20px 20px;
     padding: 0 4rem 3rem;
     box-shadow: 0 2px 14px rgba(0, 0, 0, 0.2);
+    z-index: 10;
 }
 
 .site-section .bg-vector > .container {
@@ -360,7 +361,7 @@ textarea {
 .site-section div.row-center.row-without-lgt .d-content {
     display: block;
     width: 100%;
-    padding: 45px 0 30px;
+    padding: 45px 0 35px;
 }
 
 .site-section div.row-center.row-without-lgt .d-content > h4 {
@@ -373,7 +374,7 @@ textarea {
     align-items: center;
     justify-content: space-between;
     float: left;
-    padding: 45px 0 30px;
+    padding: 45px 0 35px;
 }
 
 .site-section div.row-block.row-lgt .d-content > h4 {
@@ -513,7 +514,7 @@ textarea {
     outline: none;
 }
 
-.site-section .row-section .content .form label {
+.site-section .row-section-payment .content .form label {
     font-weight: 700;
     font-size: .8rem;
     margin-bottom: .4rem !important;
@@ -558,6 +559,36 @@ textarea {
 
 
 /* Index Page */
+.site-section .row-section-index .col-section-01 .content-details {
+    padding: 5px 15px;
+}
+
+.site-section .row-section-index .col-section-01 .content-details p {
+    opacity: .85;
+    font-size: .85rem;
+    margin-bottom: 1rem !important;
+}
+
+.site-section .row-section-index .col-section-01 .content-details .ul-list {
+    padding: 0 0 0 35px !important;
+}
+
+.site-section .row-section-index .col-section-01 .content-details .ul-list li span {
+    font-size: 1rem;
+    color: var(--black);
+    font-weight: bolder;
+}
+
+.site-section .row-section-index .col-section-01 .content-details .ul-list li {
+    margin-bottom: .75rem;
+}
+
+.site-section .row-section-index .col-section-01 .content-details .ul-list li span i.bxs-star {
+    color: var(--yellow);
+    text-shadow: 0 2px var(--orange);
+    font-size: 1.5rem;
+}
+
 .site-section .row-section-index .box-ticket {
     max-width: 13.75rem;
     left: 50%;
@@ -1270,6 +1301,118 @@ textarea {
     font-family: var(--ff-iciel-koni-black) !important;
 }
 
+/* Image Edit */
+.site-section .get-position {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.site-section .get-position .image-design {
+    position: absolute;
+}
+
+.site-section .get-position .image-01 {
+    top: 75px;
+    left: -250px;
+}
+
+.site-section .get-position .image-02 {
+    top: -25px;
+    left: -140px;
+}
+
+.site-section .get-position .image-03 {
+    top: 390px;
+    left: 260px;
+}
+
+.site-section .get-position .image-04 {
+    top: -120px;
+    left: 450px;
+}
+
+.site-section .get-position .image-05 {
+    top: -170px;
+    right: 400px;
+}
+
+.site-section .get-position .image-06 {
+    top: -145px;
+    left: 35px;
+    z-index: -1;
+}
+
+.site-section .get-position .image-07 {
+    top: 315px;
+    right: -110px;
+}
+
+.site-section .get-position .image-08 {
+    top: -10px;
+    right: -175px;
+}
+
+.site-section .get-position .image-09 {
+    top: 0px;
+    left: -320px;
+}
+
+.site-section .get-position .image-10 {
+    top: 10px;
+    left: -335px;
+}
+
+.site-section .get-position .image-11 {
+    top: -20px;
+    left: -330px;
+}
+
+.site-section .get-position .image-01 img {
+    width: 20rem;
+}
+
+.site-section .get-position .image-02 img {
+    width: 6rem;
+}
+
+.site-section .get-position .image-03 img {
+    width: 4.75rem;
+} 
+
+.site-section .get-position .image-04 img {
+    width: 6rem;
+} 
+
+.site-section .get-position .image-05 img {
+    width: 4.75rem;
+} 
+
+.site-section .get-position .image-06 img {
+    width: 20rem;
+} 
+
+.site-section .get-position .image-07 img {
+    width: 7rem;
+} 
+
+.site-section .get-position .image-08 img {
+    width: 25rem;
+} 
+
+.site-section .get-position .image-09 img {
+    width: 23rem;
+} 
+
+.site-section .get-position .image-10 img {
+    width: 25rem;
+} 
+
+.site-section .get-position .image-11 img {
+    width: 23rem;
+} 
+
 /**
  * Media Screen
  */
@@ -1337,6 +1480,35 @@ textarea {
  * max-width
  */ 
 
+/* 1500px */
+@media (max-width: 1500px) { 
+    .site-section .get-position .image-08 {
+        display: none;
+    }
+}
+
+/* 1380px */
+@media (max-width: 1380px) { 
+    .site-section .get-position .image-07,
+    .site-section .get-position .image-02 {
+        display: none;
+    }
+}
+
+/* 1300px */
+@media (max-width: 1300px) { 
+    .site-section .row-section-index .get-position .image-design,
+    .site-section .row-section-contact .get-position .image-design,
+    .site-section .row-section-payment .get-position .image-design,
+    .site-section .row-section-success .get-position .image-design {
+        display: none;
+    }
+
+    .site-section .row-section-index .col-section-01 .content-details .ul-list {
+        padding: 0 !important;
+    }
+}
+
 /* 1200px */
 @media (max-width: 1200px) { 
     .site-section .row-section .col-active-dot.col-section-01,
@@ -1403,6 +1575,10 @@ textarea {
     .site-section .row-section-success .col-section-02,
     .site-section .row-section-success .col-section-03 {
         padding: 0;
+    }
+
+    .site-section .row-section-index .col-section-01 .content-details {
+        padding: 5px 0 !important;
     }
 }
 
@@ -1495,6 +1671,10 @@ textarea {
     .site-section .row-section .col-active-dot.col-section-01 .bg-skin,
     .site-section .row-section .col-active-dot.col-section-03 .bg-skin {
         border-radius: 25px;
+    }
+
+    .site-section .row-section-index .col-section-01 .content-details {
+        padding: 5px 0 !important;
     }
 
     .site-section .row-section .col-active-dot.col-section-03,
@@ -1617,6 +1797,11 @@ textarea {
     
     .site-section div.row-center.row-without-lgt .d-content > h4,
     .site-section div.row-block.row-lgt .d-content > h4 {
-        font-size: 2.5rem !important;
+        font-size: 2.75rem !important;
+    }
+
+    .site-section .row-section-payment .col-active-dot.col-section-01 .box-ticket,
+    .site-section .row-section-payment .col-active-dot.col-section-03 .box-ticket {
+        max-width: 16rem;
     }
 }
