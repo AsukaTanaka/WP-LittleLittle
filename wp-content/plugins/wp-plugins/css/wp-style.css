@@ -1,0 +1,125 @@
+.wrap .container {
+    height: auto !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.wrap .container .form__design {
+    max-width: 450px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+}
+
+.wrap .container .form__design .header {
+    background-color: #1d2327;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.wrap .container .form__design h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.wrap .container .form__design form textarea {
+    resize: none !important;
+    width: 100%;
+    height: 150px;
+}
+
+.wrap .container .form__design form {
+    padding: 15px;
+}
+
+.wrap .container .form__design form .field {
+    margin: 10px 0;
+}
+
+.wrap .container .form__design form .field span {
+    position: relative;
+    width: 100%;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.wrap .container .form__design form .field input {
+    width: 100%;
+    height: 100%;
+}
+
+.wrap .container .form__design form .field input,
+.wrap .container .form__design form .field input:focus,
+.wrap .container .form__design form .field textarea,
+.wrap .container .form__design form .field textarea:focus {
+    box-shadow: none !important;
+    outline: 0 !important;
+}
+
+.wrap .container .form__design form .field input,
+.wrap .container .form__design form .field textarea {
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid #CACACA;
+    font-size: 16px;
+    background-color: #FFFFFF;
+}
+
+.wrap .container .form__design form textarea, 
+.wrap .container .form__design form .field input {
+    margin-top: 4px;
+}
+
+.wrap .container .form__design form span > i {
+    font-size: 75%;
+    font-weight: 500;
+}
+
+.wrap .container .form__design form span > i.get__error__msg {
+    color: #ff000a;
+}
+
+.wrap .container .form__design form .form__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wrap .container .form__design form .form__link a {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.wrap .container .form__design form .form__link .button__click__submit {
+    padding: 4px 10px;
+    margin: 10px 0;
+}
+
+.wrap .container .form__design form .field__submit.field__center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrap .container .form__design form .field__submit .button__submit {
+    width: 250px;
+    font-size: 14px;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+    margin-top: 10px;
+}
+/* Table */
+
+
+/* Media Screen */
+@media (max-width: 375px) {
+    .wrap .container .form__design form .field__submit .button__submit {
+        width: 100%;
+    }
+}

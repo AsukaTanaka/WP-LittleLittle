@@ -94,3 +94,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
+
+/** SMTP Email Settings */
+define('SMTP_USER', 'demo34021577@gmail.com');
+define('SMTP_PASS', 'hejpjjclvkjrqkax');
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_SECURE', 'ssl');
+define('SMTP_PORT', '465');
+define('SMTP_AUTH', true);
