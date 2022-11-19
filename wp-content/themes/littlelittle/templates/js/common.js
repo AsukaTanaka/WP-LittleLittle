@@ -162,11 +162,11 @@ function nextMonth() {
 }
 
 function formContact() {
-    const name = document.getElementById('name');
-    const email = document.getElementById('email');
-    const phone = document.getElementById('phone');
-    const address = document.getElementById('address');
-    const comment = document.getElementById('comment');
+    const name = document.getElementById('input-name');
+    const email = document.getElementById('input-email');
+    const phone = document.getElementById('input-phone');
+    const address = document.getElementById('input-address');
+    const comment = document.getElementById('input-comment');
 
     name.placeholder = "Tên";
     email.placeholder = "Email";

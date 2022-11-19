@@ -31,28 +31,28 @@
             background: transparent;
             border-radius: 14px 14px 0 0;
         }
-        .swal2-html-container .alert__message__contact {
+        .swal2-html-container .alert-message-contact {
             position: relative;
             text-align: left !important;
             padding: 15px 30px 5px !important;
             width: 100%;
             background-color: #FFFFFF;
         }
-        .swal2-html-container .alert__message__contact > p.sa2__text {
+        .swal2-html-container .alert-message-contact > p.sa2-text {
             margin: 0 !important;
             font-size: 0.9rem !important;
             line-height: 1.25 !important;
         }
-        .swal2-html-container .alert__message__contact.success__contact {
+        .swal2-html-container .alert-message-contact.success-contact {
             padding: 30px 30px 5px !important;
         }
-        .swal2-html-container .alert__error__contact {
+        .swal2-html-container .alert-error-contact {
             margin-bottom: 0rem !important;
             background-color: #FF8B15;
             width: 100%;
             height: 50px;
         }
-        .swal2-html-container .alert__error__contact img {
+        .swal2-html-container .alert-error-contact img {
             margin: 0 auto;
             position: absolute;
             left: 50%;

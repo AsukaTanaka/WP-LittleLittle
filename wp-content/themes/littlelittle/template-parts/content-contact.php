@@ -26,22 +26,22 @@
                                     <div class="row">
                                         <div class="col-12 col-md-12">
                                             <div class="inline-form">
-                                                <input type="text" name="name" id="name" class="input-text input-60" value="">
-                                                <input type="text" name="email" id="email" class="input-text" value="">
+                                                <input type="text" name="input-name" id="input-name" class="input-text input-60" value="">
+                                                <input type="text" name="input-email" id="input-email" class="input-text" value="">
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-12">
                                             <div class="inline-form">
-                                                <input type="text" name="phone" id="phone" class="input-text input-60" value="">
-                                                <input type="text" name="address" id="address" class="input-text" value="">
+                                                <input type="text" name="input-phone" id="input-phone" class="input-text input-60" value="">
+                                                <input type="text" name="input-address" id="input-address" class="input-text" value="">
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-12">
-                                            <textarea name="comment" id="comment" class="input-text input-textarea"></textarea>
+                                            <textarea name="input-comment" id="input-comment" class="input-text input-textarea"></textarea>
                                         </div>
                                         <div class="col-12 col-md-12">
                                             <div class="button-form">
-                                                <button class="button-red button-submit" value="send-contact" name="send-contact">Gửi Liên Hệ</button>
+                                                <button type="submit" class="button-red button-submit" value="send-contact" name="send-contact">Gửi Liên Hệ</button>
                                             </div>
                                         </div>
                                     </div>
@@ -102,11 +102,11 @@
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
-        const valueName = document.getElementById('name');
-        const valueEmail = document.getElementById('email');
-        const valuePhone = document.getElementById('phone');
-        const valueAddress = document.getElementById('address');
-        const valueComment = document.getElementById('comment');
+        const valueName = document.getElementById('input-name');
+        const valueEmail = document.getElementById('input-email');
+        const valuePhone = document.getElementById('input-phone');
+        const valueAddress = document.getElementById('input-address');
+        const valueComment = document.getElementById('input-comment');
 
     </script>
 <?php 
@@ -116,11 +116,11 @@ $table__name = $wpdb->prefix . 'contact';
 
 if (isset($_POST["send-contact"])) {
 
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $phone = $_POST["phone"];
-    $address = $_POST["address"];
-    $comment = $_POST["comment"];
+    $name = $_POST["input-name"];
+    $email = $_POST["input-email"];
+    $phone = $_POST["input-phone"];
+    $address = $_POST["input-address"];
+    $comment = $_POST["input-comment"];
     $status = false;
     $error = array();
     date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -148,9 +148,9 @@ if (isset($_POST["send-contact"])) {
         <script type="text/javascript">
             Swal.fire({
                 html:
-                    '<div class="alert__message__contact success__contact">' +
-                    '<p class="sa2__text">Gửi liên hệ thành công</p>' +
-                    '<p class="sa2__text">Vui lòng kiên nhẫn đợi phản hồi từ chúng tôi, bạn nhé!</p>' + '</div>',
+                    '<div class="alert-message-contact success-contact">' +
+                    '<p class="sa2-text">Gửi liên hệ thành công</p>' +
+                    '<p class="sa2-text">Vui lòng kiên nhẫn đợi phản hồi từ chúng tôi, bạn nhé!</p>' + '</div>',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,
@@ -173,10 +173,10 @@ if (isset($_POST["send-contact"])) {
         <script type="text/javascript">
             Swal.fire({
                 html:
-                    '<div class="alert__error__contact">' +
+                    '<div class="alert-error-contact">' +
                     '<img src="<?php echo get_template_directory_uri() . "/templates/images/icon/error.png" ?>" alt="">' + '</div>' +
-                    '<div class="alert__message__contact">' +
-                    '<p class="sa2__text"><?php echo (!empty($error['message']['required'])) ? $error['message']['required'] : false; echo (!empty($error['message']['filter'])) ? $error['message']['filter'] : false; ?></p>'
+                    '<div class="alert-message-contact">' +
+                    '<p class="sa2-text"><?php echo (!empty($error['message']['required'])) ? $error['message']['required'] : false; echo (!empty($error['message']['filter'])) ? $error['message']['filter'] : false; ?></p>'
                     + '</div>',
                 showCancelButton: false,
                 showConfirmButton: false,
@@ -185,14 +185,16 @@ if (isset($_POST["send-contact"])) {
                 /* return */
             });    
             /* get value without return sweetalert */
-            valueName.value = '<?php echo (!empty($_POST['name'])) ? $_POST['name'] : false; ?>';
-            valueEmail.value = '<?php echo (!empty($_POST['email'])) ? $_POST['email'] : false; ?>';
-            valueAddress.value = '<?php echo (!empty($_POST['address'])) ? $_POST['address'] : false;  ?>';
-            valuePhone.value = '<?php echo (!empty($_POST['phone'])) ? $_POST['phone'] : false; ?>';
-            valueComment.innerHTML = '<?php echo (!empty($_POST['comment'])) ? $_POST['comment'] : false; ?>';
+            valueName.value = '<?php echo (!empty($_POST['input-name'])) ? $_POST['input-name'] : false; ?>';
+            valueEmail.value = '<?php echo (!empty($_POST['input-email'])) ? $_POST['input-email'] : false; ?>';
+            valueAddress.value = '<?php echo (!empty($_POST['input-address'])) ? $_POST['input-address'] : false;  ?>';
+            valuePhone.value = '<?php echo (!empty($_POST['input-phone'])) ? $_POST['input-phone'] : false; ?>';
+            valueComment.innerHTML = '<?php echo (!empty($_POST['input-comment'])) ? $_POST['input-comment'] : false; ?>';
         </script>
     
     <?php 
     }
+} else {
+
 }
 ?>
