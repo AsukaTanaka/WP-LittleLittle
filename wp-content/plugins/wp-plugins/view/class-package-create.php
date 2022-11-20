@@ -5,44 +5,44 @@
 
 <div class="wrap">
     <div class="container">
-        <div class="form__design form__package">
+        <div class="form-design form-package">
             <div class="header">
                 <h2>Thêm Loại Gói</h2>
             </div>
-            <form action="" method="post" class="form__package__create" enctype="multipart/form-data">
+            <form action="" method="post" class="form-package-create" enctype="multipart/form-data">
                 <div class="field">
-                    <span class="">Loại gói: <i class="get__error__msg error__package"></i></span>
-                    <input type="text" placeholder="" value="" class="input__field" name="input__package" id="input__package">
+                    <span class="">Loại gói: <i class="get-error-msg error-package"></i></span>
+                    <input type="text" placeholder="" value="" class="input-field" name="input-package" id="input-package">
                 </div>
                 <div class="field">
-                    <span class="">Giá tiền: <i class="get__error__msg error__price"></i></span>
-                    <input type="text" placeholder="" value="" class="input__field" name="input__price" id="input__price">
+                    <span class="">Giá tiền: <i class="get-error-msg error-price"></i></span>
+                    <input type="text" placeholder="" value="" class="input-field" name="input-price" id="input-price">
                 </div>
-                <!-- <div class="field__submit field__center">
-                    <input type="submit" class="button__submit" name="create__package" value="Tạo Mới" style="cursor: pointer !important">
+                <!-- <div class="field-submit field-center">
+                    <input type="submit" class="button-submit" name="create-package" value="Tạo Mới" style="cursor: pointer !important">
                 </div> -->
-                <div class="form__link">
-                        <a href="<?php echo admin_url('admin.php?page=package') ?>"><i class='bx bx-left-arrow-alt'></i> Trở lại trang liên hệ</a>
-                        <input type="submit" class="button__submit button__click__submit" name="create__package" value="Tạo Mới" style="cursor: pointer !important">
-                    </div>
+                <div class="form-link">
+                    <a href="<?php echo admin_url('admin.php?page=package') ?>"><i class='bx bx-left-arrow-alt'></i> Trở lại trang liên hệ</a>
+                    <input type="submit" class="button-submit button-click-submit" name="create-package" value="Tạo Mới" style="cursor: pointer !important">
+                </div>
             </form>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    const errorPackage = document.querySelector('.error__package');
-    const errorPrice = document.querySelector('.error__price');
+    const errorPackage = document.querySelector('.error-package');
+    const errorPrice = document.querySelector('.error-price');
 
-    const valuePackage = document.getElementById('input__package');
-    const valuePrice = document.getElementById('input__price');     
+    const valuePackage = document.getElementById('input-package');
+    const valuePrice = document.getElementById('input-price');     
 </script>
 
 <?php 
 
-    if(isset($_POST['create__package']))
+    if(isset($_POST['create-package']))
     {
-        $package = $_POST['input__package'];
-        $price = $_POST['input__price'];
+        $package = $_POST['input-package'];
+        $price = $_POST['input-price'];
         $error = array();
         $get_min = 10000;
         $get_max = 5000000;
@@ -100,8 +100,8 @@
                         echo (!empty($error['price']['filter'])) ? $error['price']['filter'] : false;
                     ?>';
 
-                valuePackage.value = '<?php echo (!empty($_POST['input__package'])) ? $_POST['input__package'] : false; ?>'
-                valuePrice.value = '<?php echo (!empty($_POST['input__price'])) ? $_POST['input__price'] : false; ?>'
+                valuePackage.value = '<?php echo (!empty($_POST['input-package'])) ? $_POST['input-package'] : false; ?>'
+                valuePrice.value = '<?php echo (!empty($_POST['input-price'])) ? $_POST['input-price'] : false; ?>'
             </script>
 
             <?php 

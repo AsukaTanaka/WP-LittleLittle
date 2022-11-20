@@ -20,39 +20,39 @@ if (isset($_GET['id'])) {
 
  <div class="wrap">
         <div class="container">
-            <div class="form__design form__contact">
+            <div class="form-design form-contact">
                 <div class="header">
                     <h2>Mã Liên Hệ Số <?php echo $select[0]->id ?></h2>
                 </div>
-                <form action="" method="post" class="form__contact__details" enctype="multipart/form-data">
-                    <input type="hidden" placeholder="" value="<?php echo $select[0]->id ?>" class="input__field" readonly="true" name="input__id">
+                <form action="" method="post" class="form-contact-details" enctype="multipart/form-data">
+                    <input type="hidden" placeholder="" value="<?php echo $select[0]->id ?>" class="input-field" readonly="true" name="input-id">
 
                     <div class="field">
                         <span for="">Tên:</span>
-                        <input type="text" placeholder="" value="<?php echo $select[0]->name ?>" class="input__field" readonly="true" name="input__name">
+                        <input type="text" placeholder="" value="<?php echo $select[0]->name ?>" class="input-field" readonly="true" name="input-name">
                     </div>
                     <div class="field">
                         <span for="">Email:</span>
-                        <input type="text" placeholder="" value="<?php echo $select[0]->email ?>" class="input__field" readonly="true" name="input__email">
+                        <input type="text" placeholder="" value="<?php echo $select[0]->email ?>" class="input-field" readonly="true" name="input-email">
                     </div>
                     <div class="field">
                         <span for="">Số điện thoại:</span>
-                        <input type="text" placeholder="" value="<?php echo $select[0]->phone ?>" class="input__field" readonly="true" name="input__phone">
+                        <input type="text" placeholder="" value="<?php echo $select[0]->phone ?>" class="input-field" readonly="true" name="input-phone">
                     </div>
                     <div class="field">
                         <span for="">Địa chỉ:</span>
-                        <input type="text" placeholder="" value="<?php echo $select[0]->address ?>" class="input__field" readonly="true" name="input__address">
+                        <input type="text" placeholder="" value="<?php echo $select[0]->address ?>" class="input-field" readonly="true" name="input-address">
                     </div>
                     <div class="field">
                         <span for="">Nội dung:</span>
-                        <textarea cols="30" rows="10" class="input__textarea" readonly="true" name="input__comment"><?php echo $select[0]->comment ?></textarea>
+                        <textarea cols="30" rows="10" class="input-textarea" readonly="true" name="input-comment"><?php echo $select[0]->comment ?></textarea>
                     </div>
-                    <div class="form__link">
+                    <div class="form-link">
                         <a href="<?php echo admin_url('admin.php?page=contact') ?>"><i class='bx bx-left-arrow-alt'></i> Trở lại trang liên hệ</a>
                         <?php
                         if ($select[0]->status == false) {
                         ?>
-                            <input type="submit" class="send__mail button__click__submit" name="send__mail" value="Gửi Mail" style="cursor: pointer !important" />
+                            <input type="submit" class="send-mail button-click-submit" name="send-mail" value="Gửi Mail" style="cursor: pointer !important" />
                         <?php
                         }
                         ?>
@@ -63,13 +63,13 @@ if (isset($_GET['id'])) {
     </div>
 
 <?php 
-    if (isset($_POST['send__mail'])) {
-        $id = $_POST['input__id'];
-        $name = $_POST['input__name'];
-        $email = $_POST['input__email'];
-        $phone = $_POST['input__phone'];
-        $address = $_POST['input__address'];
-        $comment = $_POST['input__comment'];
+    if (isset($_POST['send-mail'])) {
+        $id = $_POST['input-id'];
+        $name = $_POST['input-name'];
+        $email = $_POST['input-email'];
+        $phone = $_POST['input-phone'];
+        $address = $_POST['input-address'];
+        $comment = $_POST['input-comment'];
 
         $phpmailer->SMTPDebug = 2;
         $phpmailer->isSMTP();

@@ -28,7 +28,7 @@ class WP_Custom_Package extends WP_List_Table {
         );
     }
 
-     /**
+    /**
      * @param $item - row (key, value array)
      * @param $column_name - string (key)
      * @return HTML
@@ -46,7 +46,7 @@ class WP_Custom_Package extends WP_List_Table {
         }
     }
 
-     /**
+    /**
      * When Your Hover Row "Edit" | "Delete" Links Showed
      * @param $item - row (key, value array)
      * @return HTML
@@ -82,7 +82,7 @@ class WP_Custom_Package extends WP_List_Table {
         );
     }
 
-     /** 
+    /** 
      * Skip Columns That You Do Not Want To Want
      */
 
@@ -99,7 +99,7 @@ class WP_Custom_Package extends WP_List_Table {
         return $columns;
     }
 
-      /**
+    /**
      * All Strings in Array - Is Column Names
      * Notice That True On Name Column Means That Its Default Sort
      */
@@ -151,7 +151,7 @@ class WP_Custom_Package extends WP_List_Table {
         }
     }
 
- /**
+    /**
      * It Will Get Rows From Database and Prepare Them To Be Showed In Table
      */
 

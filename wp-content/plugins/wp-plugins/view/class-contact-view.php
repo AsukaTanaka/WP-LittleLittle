@@ -84,7 +84,7 @@ class WP_Custom_Contact extends WP_List_Table {
         );
     }
 
-      /** 
+    /** 
      * Skip Columns That You Do Not Want To Want
      */
 
@@ -96,7 +96,7 @@ class WP_Custom_Contact extends WP_List_Table {
             'name' => __('Tên', 'Contact'),
             'email' => __('Email', 'Contact'),
             'address' => __('Địa Chỉ', 'Contact'),
-            'status' => __('Trạng Thái', 'Contacct'),
+            'status' => __('Trạng Thái', 'Contact'),
             'create_at' => __('Ngày Tạo', 'Contact'),
         );
 
