@@ -11,11 +11,11 @@
             </div>
             <form action="" method="post" class="form-package-create" enctype="multipart/form-data">
                 <div class="field">
-                    <span class="">Loại gói: <i class="get-error-msg error-package"></i></span>
+                    <span class="span">Loại gói: <i class="get-error-msg error-package"></i></span>
                     <input type="text" placeholder="" value="" class="input-field" name="input-package" id="input-package">
                 </div>
                 <div class="field">
-                    <span class="">Giá tiền: <i class="get-error-msg error-price"></i></span>
+                    <span class="span">Giá tiền: <i class="get-error-msg error-price"></i></span>
                     <input type="text" placeholder="" value="" class="input-field" name="input-price" id="input-price">
                 </div>
                 <!-- <div class="field-submit field-center">

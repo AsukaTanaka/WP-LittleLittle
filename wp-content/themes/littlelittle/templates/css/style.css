@@ -1029,7 +1029,7 @@ textarea {
     color: var(--orange);
 }
 
-.site-section .row-section-event .content .col-lg-8 .grid-ish p b.first-title {
+.site-section .row-section-event .content .col-lg-8 .grid-ish:nth-child(1) p b:nth-child(1) {
     font-size: .95rem;
 }
 

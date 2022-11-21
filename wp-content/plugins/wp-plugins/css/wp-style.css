@@ -43,7 +43,7 @@
     margin: 10px 0;
 }
 
-.wrap .container .form-design form .field span {
+.wrap .container .form-design form .field .span {
     position: relative;
     width: 100%;
     font-weight: 700;
@@ -121,8 +121,8 @@
     width: 100%;
     height: 220px;
     border-radius: 6px;
-    background-color: #ffffff;
-    border: 1px solid #CACACA;
+    /* background-color: #ffffff;
+    border: 1px solid #CACACA; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -130,16 +130,21 @@
     margin-top: 4px;
 }
 
-.wrap .container .form-event .field .file .image {
+.wrap .container .form-event .field .file.active  {
+    border: none;
+}
+
+.wrap .container .form-event .field .file .thumbnail {
     position: absolute;
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
 }
 
-.wrap .container .form-event .field .file .image img {
+.wrap .container .form-event .field .file .thumbnail .thumbnail-upload {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -159,26 +164,45 @@
     text-align: center;
 }
 
-.wrap .container .form-event .field .file .btn-cancel {
+.wrap .container .form-event .field .file .btn-cancel,
+.wrap .container .form-event .field .file .file-name {
+    display: none;
+}
+
+
+
+/* .wrap .container .form-event .field .file .btn-cancel {
     position: absolute;
     right: 10px;
     top: 10px;
     font-size: 1.25rem;
     cursor: pointer;
     display: none;
+    color: transparent;
+} */
+
+
+/* .wrap .container .form-event .field .file.active:hover .btn-cancel,
+.wrap .container .form-event .field .file.active:hover .file-name  {
+    background-color: #1d2327;
+    color: #ffffff;
 }
 
 .wrap .container .form-event .field .file .file-name {
     position: absolute;
     bottom: 0px;
     width: 100%;
-    background-color: #1d2327;
-    color: #ffffff;
     padding: 8px 0;
     font-size: .8rem;
     text-align: center;
     display: none;
+    color: transparent;
 }
+
+.wrap .container .form-event .field .file.active .btn-cancel,
+.wrap .container .form-event .field .file.active .file-name {
+    display: block;
+} */
 
 .wrap .container .form-event .btn-custom {
     width: 100%;
@@ -186,7 +210,7 @@
     border-radius: 6px;
     border: 1px solid #CACACA;
     font-size: 1rem;
-    margin-top: 20px;
+    margin: 20px 0 4px;
     cursor: pointer;
 }
 
@@ -198,10 +222,11 @@
     padding: 10px 0;
 }
 
-.tox-tinymce {
+.tox-tinymce,
+.tox-editor-container {
     margin-top: 4px !important;
-    resize: none !important;
 }
+
 
 /* Table */
 

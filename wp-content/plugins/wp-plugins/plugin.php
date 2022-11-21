@@ -397,11 +397,18 @@ function OUTPUT__BILL__VIEW()
  */
 
 add_action('admin_enqueue_scripts', 'CUSTOM__ADMIN__CSS');
+add_action('admin_enqueue_scripts', 'CUSTOM__ADMIN__JS');
+
 function CUSTOM__ADMIN__CSS() {
-    wp_enqueue_style('boxicons', 'https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css', false);
     wp_enqueue_style('style', ROOT__PLUGIN__URI . 'css/wp-style.css', false, '1.0.0');
-    wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-3.2.1.min.js');
-    wp_enqueue_script('script', ROOT__PLUGIN__URI . 'js/wp-common.js');
+    wp_enqueue_style('boxicons', 'https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css', false);
+   
+}
+
+function CUSTOM__ADMIN__JS() {
+    wp_enqueue_script('tinymce', ROOT__PLUGIN__URI . 'view/tinymce/tinymce.min.js', array());
+    wp_enqueue_script('script', ROOT__PLUGIN__URI . 'js/wp-common.js', array(), '1.0.0', 'all');
+    wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-3.2.1.min.js', array());
 }
 
 

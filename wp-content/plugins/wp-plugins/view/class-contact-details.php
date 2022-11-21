@@ -28,23 +28,23 @@ if (isset($_GET['id'])) {
                     <input type="hidden" placeholder="" value="<?php echo $select[0]->id ?>" class="input-field" readonly="true" name="input-id">
 
                     <div class="field">
-                        <span for="">Tên:</span>
+                        <span class="span">Tên:</span>
                         <input type="text" placeholder="" value="<?php echo $select[0]->name ?>" class="input-field" readonly="true" name="input-name">
                     </div>
                     <div class="field">
-                        <span for="">Email:</span>
+                        <span class="span">Email:</span>
                         <input type="text" placeholder="" value="<?php echo $select[0]->email ?>" class="input-field" readonly="true" name="input-email">
                     </div>
                     <div class="field">
-                        <span for="">Số điện thoại:</span>
+                        <span class="span">Số điện thoại:</span>
                         <input type="text" placeholder="" value="<?php echo $select[0]->phone ?>" class="input-field" readonly="true" name="input-phone">
                     </div>
                     <div class="field">
-                        <span for="">Địa chỉ:</span>
+                        <span class="span">Địa chỉ:</span>
                         <input type="text" placeholder="" value="<?php echo $select[0]->address ?>" class="input-field" readonly="true" name="input-address">
                     </div>
                     <div class="field">
-                        <span for="">Nội dung:</span>
+                        <span class="span">Nội dung:</span>
                         <textarea cols="30" rows="10" class="input-textarea" readonly="true" name="input-comment"><?php echo $select[0]->comment ?></textarea>
                     </div>
                     <div class="form-link">
