@@ -1,6 +1,7 @@
 <?php 
     global $wpdb;
     $table__name = $wpdb->prefix . 'event';
+
 ?>
 
 <div class="wrap">
@@ -20,11 +21,11 @@
                 </div>
                 <div class="field">
                     <span class="span">Ngày Bắt Đầu: <i class="get-error-msg error-start-date"></i></span>
-                    <input type="text" placeholder="" value="" class="input-field" name="input-start-date" id="input-start-date">
+                    <input type="text" placeholder="" value="" class="input-field" name="input-start-date" id="input-start-date" readonly="true">
                 </div>
                 <div class="field">
                     <span class="span">Ngày Kết Thúc: <i class="get-error-msg error-end-date"></i></span>
-                    <input type="text" placeholder="" value="" class="input-field" name="input-end-date" id="input-end-date">
+                    <input type="text" placeholder="" value="" class="input-field" name="input-end-date" id="input-end-date" readonly="true">
                 </div>
                 <div class="field">
                     <span class="span">Giá Tiền: <i class="get-error-msg error-balance"></i></span>
@@ -57,6 +58,7 @@
                     <span class="span">Nội Dung: <i class="get-error-msg error-content"></i></span>
                     <textarea name="input-content" id="input-content" class="input-textarea"></textarea>
                 </div>
+                <textarea name="get-content" id="get-content" style="display: none"></textarea>
                 <div class="form-link">
                     <a href="<?php echo admin_url('admin.php?page=event') ?>"><i class='bx bx-left-arrow-alt'></i> Trở lại trang sự kiện</a>
                     <input type="submit" class="button-submit button-click-submit" name="create-event" value="Tạo Mới" style="cursor: pointer !important">
@@ -83,8 +85,10 @@
     const valueThumbnail = document.getElementById('input-thumbnail');
     const valueContent = document.getElementById('input-content');
 
-    valueThumbnail.setAttribute('accept', '.jpg, .jpeg, .png');
+    const getValueThumbnail = document.querySelector('.thumbnail-upload');
 
+    valueThumbnail.setAttribute('accept', '.jpg, .jpeg, .png');
+    
     tinymce.init({
         selector: "textarea.input-textarea",
         width: "100%",
@@ -100,7 +104,7 @@
             'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'insertdatetime',
             'media', 'table', 'emoticons', 'template', 'image', 'code',
         ],
-        toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent',
+        toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent',
         file_picker_types: 'image',
         images_file_types: 'jpg,png,jpeg',
         automatic_uploads: true,
@@ -108,6 +112,11 @@
         paste_block_drop: false,
         paste_data_images: true,
         paste_as_text: true,
+        cleanup : true,
+        allow_html_in_named_anchor: true,
+        autosave_restore_when_empty: true,
+        entity_encoding : 'raw',
+
         formats: {
             bold: { inline: 'b' },  
             italic: { inline: 'i' },
@@ -122,9 +131,54 @@
                 padding: 0 !important;
             }
         `,
-    });
-</script>
+        // protect: [
+        //     /\<\/?(if|endif)\>/g,  // Protect <if> & </endif>
+        //     /\<xsl\:[^>]+\>/g,  // Protect <xsl:...>
+        //     /<\?php.*?\?>/g,  // Protect php code
+        // ],
+        setup: function(editor) {
+            editor.on('init keydown change', function(e) {
+                document.getElementById('get-content').innerHTML = editor.getContent();
+            });
+        }
+    });    
+    
+    function datepickerForm() {
+        // var start = new Date();
+        // var end = new Date(new Date().setYear(start.getFullYear() + 1));
+        
+        (function($) {
 
+            $( "#input-start-date" ).datepicker({
+                dateFormat: 'dd/mm/yy',
+                // startDate: start,
+                // endDate: end,
+                minDate: +1,
+                yearRange: new Date().getFullYear() + ':' + new Date().getFullYear(),
+                onSelect: function(date) {
+                    var start = $('#input-start-date').datepicker('getDate');
+                    var date = new Date(Date.parse(start));
+                    date.setDate(date.getDate() + 1);
+                    var newDate = date.toDateString();
+                    newDate = new Date(Date.parse(newDate));
+                    $('#input-end-date').datepicker("option", "minDate", newDate);
+                },
+            });
+
+            $( "#input-end-date" ).datepicker({
+                dateFormat: 'dd/mm/yy',
+                // startDate: start,
+                // endDate: end,
+                minDate: +2,
+                yearRange: new Date().getFullYear() + ':' + new Date().getFullYear(),
+                enableOnReadonly: true,
+            });
+        })(jQuery);
+    }
+  
+    datepickerForm();
+
+</script>
 <?php 
     if(isset($_POST['create-event'])) {
         $title = $_POST['input-title'];
@@ -132,9 +186,14 @@
         $startDate = $_POST['input-start-date'];
         $endDate = $_POST['input-end-date'];
         $balance = $_POST['input-balance'];
+        $get_min = 10000;
+        $get_max = 5000000;
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+
         $error = array();
 
         $content = $_POST['input-content'];
+        $newContent = $_POST['get-content'];
 
         if(empty(trim($title))) {
             $error['title']['required'] = "*Không được để trống";
@@ -144,14 +203,37 @@
             }
         }
 
-        if(empty(trim($addrss))) {
-            $error['address']['required'] = "*Địa chỉ không được để trống";
+        if(empty(trim($address))) {
+            $error['address']['required'] = "*Không được để trống";
         } else {
             if(strlen(trim($address))<6 || strlen(trim($address))>50) {
                 $error['address']['strlen'] = "*Phải từ 6 đến 50 ký tự";
             }
         }
-        
+
+        if(empty(trim($startDate))) {
+            $error['start-date']['required'] = "*Không được để trống";
+        } else {
+
+        }
+
+        if(empty(trim($endDate))) {
+            $error['end-date']['required'] = "*Không được để trống";
+        } else {
+
+        }
+
+        if(empty(trim($balance))) {
+            $error['balance']['required'] = "*Không được để trống";
+        } else {
+            if(!is_numeric($balance)) {
+                $error['balance']['numeric'] = '*Chỉ nhận giá trị số';
+            }
+            else if(filter_var($balance, FILTER_VALIDATE_INT, array("options" => array("min_range"=>$get_min, "max_range"=>$get_max))) === false) {
+                $error['balance']['filter'] = '*Chỉ nhận từ 10.000 đến 5.000.000 (vnđ)';
+            }
+        }
+
         if($_FILES['input-thumbnail']['error'] === 4) {
             $error['thumbnail']['required'] = "*Không được để trống";
         } else {
@@ -161,7 +243,6 @@
             $validImageExtension = ['jpg', 'jpeg', 'png'];
             $imageExtension = explode('.', $fileName);
             $imageExtension = strtolower(end($imageExtension));
-
             if(!in_array($imageExtension, $validImageExtension)) {
                 $error['thumbnail']['invalid'] = "*Hình ảnh không hợp lệ";
             }
@@ -170,7 +251,100 @@
             }
         }
 
+        if(empty(trim(strip_tags($content)))) {
+            $error['content']['required'] = "*Không được để trống";
+        } else {
 
+        }
+
+        if(empty($error)) {
+            $newImageName = uniqid();
+            $newImageName .= '.' . $imageExtension;
+
+            $folderPath = "/wp-uploads/files/thumbnail/{$projID}";
+
+            mkdir(ABSPATH.$folderPath, 0777, true);
+            $target_path = ABSPATH.$folderPath . "/" . $newImageName;
+
+           
+            chmod("{$target_path}", 0777);   
+            if( move_uploaded_file($tmpName, $target_path) ) {
+                $wpdb->insert($table__name, array(
+                    'title' => $title,
+                    'address' => $address,
+                    'start_date' => $startDate,
+                    'end_date' => $endDate,
+                    'balance' => $balance,
+                    'thumbnail' => $newImageName,
+                    'content' => $newContent,
+                    'create_at' => date('j/n/Y - g:i a')
+                ));
+            }
+           
+            
+            ?>
+            
+            <script type="text/javascript">
+                window.location = '<?php echo get_site_url() . '/wp-admin/admin.php?page=event'; ?>';
+            </script>
+            
+            <?php
+        } else {
+            ?>
+            
+            <script type="text/javascript">
+                errorTitle.innerHTML = 
+                '<?php
+                    echo (!empty($error['title']['required'])) ? $error['title']['required'] : false;
+                    echo (!empty($error['title']['strlen'])) ? $error['title']['strlen'] : false;
+                ?>';
+
+                errorAddress.innerHTML = 
+                '<?php 
+                    echo (!empty($error['address']['required'])) ? $error['address']['required'] : false;
+                    echo (!empty($error['address']['strlen'])) ? $error['address']['strlen'] : false;
+                ?>';
+
+                errorStartDate.innerHTML = 
+                '<?php 
+                    echo (!empty($error['start-date']['required'])) ? $error['start-date']['required'] : false;
+                ?>';
+
+                errorEndDate.innerHTML = 
+                '<?php 
+                    echo (!empty($error['end-date']['required'])) ? $error['end-date']['required'] : false;
+                ?>';
+
+                errorBalance.innerHTML = 
+                '<?php 
+                    echo (!empty($error['balance']['required'])) ? $error['balance']['required'] : false;
+                    echo (!empty($error['balance']['numeric'])) ? $error['balance']['numeric'] : false;
+                    echo (!empty($error['balance']['filter'])) ? $error['balance']['filter'] : false;
+                ?>';
+
+                errorThumbnail.innerHTML =
+                '<?php 
+                    echo (!empty($error['thumbnail']['required'])) ? $error['thumbnail']['required'] : false;
+                    echo (!empty($error['thumbnail']['invalid'])) ? $error['thumbnail']['invalid'] : false;
+                    echo (!empty($error['thumbnail']['size'])) ? $error['thumbnail']['size'] : false;
+                ?>';
+
+                errorContent.innerHTML = 
+                '<?php 
+                    echo (!empty($error['content']['required'])) ? $error['content']['required'] : false;
+                ?>';
+
+                valueTitle.value = '<?php echo (!empty($_POST['input-title'])) ? $_POST['input-title'] : false; ?>';          
+                valueAddress.value = '<?php echo (!empty($_POST['input-address'])) ? $_POST['input-address'] : false; ?>';           
+                valueStartDate.value = '<?php echo (!empty($_POST['input-start-date'])) ? $_POST['input-start-date'] : false; ?>';
+                valueEndDate.value = '<?php echo (!empty($_POST['input-end-date'])) ? $_POST['input-end-date'] : false; ?>';
+                valueBalance.value = '<?php echo (!empty($_POST['input-balance'])) ? $_POST['input-balance'] : false; ?>';
+                // valueThumbnail.value = '<?php // echo (!empty($_POST['input-thumbnail'])) ? $_POST['input-thumbnail'] : false; ?>';
+                valueContent.innerHTML = '<?php echo (!empty($_POST['input-content'])) ? $_POST['input-content'] : false; ?>';
+           </script>
+
+            <?php
+        }
 
     }
 ?>

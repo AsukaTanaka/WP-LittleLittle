@@ -45,6 +45,7 @@ function pluginFormEvent() {
     
 // }
 
+
 /**
  * Call Function
  */
@@ -52,4 +53,5 @@ function pluginFormEvent() {
 if(document.getElementById('plugin-form-event')) {
     pluginFormEvent();
     // tinyMCE();
+
 }
