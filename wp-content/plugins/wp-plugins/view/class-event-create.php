@@ -276,7 +276,7 @@
                     'end_date' => $endDate,
                     'balance' => $balance,
                     'thumbnail' => $newImageName,
-                    'content' => $newContent,
+                    'content' => stripslashes($newContent),
                     'create_at' => date('j/n/Y - g:i a')
                 ));
             }
