@@ -41,26 +41,9 @@ function pluginFormEvent() {
     
 }
 
-function tinyMCE() {
-    tinymce.init({
-        selector: "textarea.input-textarea",
-        width: "100%",
-        statubar: true,
-        menubar: true,
-        toolbar: true,
-        element_format: 'html',
-        file_picker_types: 'image',
-        block_unsupported_drop: false,
-        plugins: 'image code wordcount',
-        images_file_types: 'jpg,png,jpeg',
-        formats: {
-            bold: { inline: 'b' },  
-            italic: { inline: 'i' },
-            underline: { inline: 'u' },
-            // blockquote: { block: 'blockquote', classes: 'col', wrapper: true },
-        },
-    });
-}
+// function tinyMCE() {
+    
+// }
 
 /**
  * Call Function
@@ -68,5 +51,5 @@ function tinyMCE() {
 
 if(document.getElementById('plugin-form-event')) {
     pluginFormEvent();
-    tinyMCE();
+    // tinyMCE();
 }
