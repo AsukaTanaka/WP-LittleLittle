@@ -44,6 +44,7 @@ class WP_Custom_Event extends WP_List_Table {
             case '1' : 
                 return '1';
             // Doesn't match the above so return the database field contents
+            
             default : 
                 return $item[$column_name];
         }

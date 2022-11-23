@@ -57,8 +57,9 @@ function tinyMCE() {
             'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'insertdatetime',
             'media', 'table', 'emoticons', 'template', 'image', 'code',
         ],
-        toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent | link code | link image',
+        toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent | link code image',
         file_picker_types: 'image',
+        image_advtab: true,
         images_file_types: 'jpg,png,jpeg',
         automatic_uploads: true,
         image_title: true,
@@ -69,7 +70,6 @@ function tinyMCE() {
         allow_html_in_named_anchor: true,
         autosave_restore_when_empty: true,
         entity_encoding : 'raw',
-
         formats: {
             bold: { inline: 'b' },  
             italic: { inline: 'i' },
@@ -93,44 +93,60 @@ function tinyMCE() {
             editor.on('init keydown change', function(e) {
                 document.getElementById('get-content').innerHTML = editor.getContent();
             });
-
         },
         images_upload_credentials: true,
         file_picker_callback: (callback, value, meta) => {
-            var input = document.getElementById('get-array-picture');
-            input.click();
+            // if (meta.filetype == 'image') {
+            //     var input = document.getElementById('get-array-picture');
+            //     input.click();
+            
+            //     input.onchange = function() {
+            //         var file = this.files[0];
+            //         if(file) {
+
+            //             // };
+            //             var reader = new FileReader();
+            //             reader.onload = function (e) {
+            //                 callback(e.target.result, {
+            //                     // alt: file.name,
+            //                     title: file.name,
+            //                 });
+            //             };
+            //             reader.readAsDataURL(file);
+            //         }
+            //         // if(input.value) {
+            //         //     let valueStore = input.value.match(regExp);
+            //         //     input.setAttribute('value', valueStore);
+            //         // }
+                    
+            //     };
+            // }
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', '.jpg, .jpeg, .png');
 
             input.onchange = function() {
-                var file = this.files[0];
-                if(file) {
-                    // var reader = new FileReader();
-                    
-                    // reader.onload = function() {
-                    //     var id = 'blobid' + (new Date()).getTime();
-                    //     var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                    //     var base64 = reader.result.split(',')[1];
-                    //     var blobInfo = blobCache.create(id, file, base64);
-                    //     blobCache.add(blobInfo);
-                    //     callback(blobInfo.blobUri(), { title: file.name });
+            var file = this.files[0];
 
-                    // };
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        callback(e.target.result, {
-                            // alt: file.name,
-                            title: file.name,
-                        });
-                    };
-                    reader.readAsDataURL(file);
-                }
-                // if(input.value) {
-                //     let valueStore = input.value.match(regExp);
-                //     input.setAttribute('value', valueStore);
-                // }
-                
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                // Note: Now we need to register the blob in TinyMCEs image blob
+                // registry. In the next release this part hopefully won't be
+                // necessary, as we are looking to handle it internally.
+                var id = 'blobid' + (new Date()).getTime();
+                var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                var base64 = reader.result.split(',')[1];
+                var blobInfo = blobCache.create(id, file, base64);
+                blobCache.add(blobInfo);
+
+                // call the callback and populate the Title field with the file name
+                callback(blobInfo.blobUri(), { title: file.name });
+                };
             };
-        },
-
+            input.click();
+        }
+       
     });    
 }
 
