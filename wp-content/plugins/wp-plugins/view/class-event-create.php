@@ -89,94 +89,6 @@
 
     valueThumbnail.setAttribute('accept', '.jpg, .jpeg, .png');
     
-    tinymce.init({
-        selector: "textarea.input-textarea",
-        width: "100%",
-        statubar: true,
-        menubar: true,
-        element_format: 'html',
-        file_picker_types: 'image',
-        block_unsupported_drop: false,
-        language: 'vi',
-        menubar: 'view | insert | format | tools',
-        plugins: [
-            'advlist', 'autolink', 'link', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-            'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'insertdatetime',
-            'media', 'table', 'emoticons', 'template', 'image', 'code',
-        ],
-        toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent',
-        file_picker_types: 'image',
-        images_file_types: 'jpg,png,jpeg',
-        automatic_uploads: true,
-        image_title: true,
-        paste_block_drop: false,
-        paste_data_images: true,
-        paste_as_text: true,
-        cleanup : true,
-        allow_html_in_named_anchor: true,
-        autosave_restore_when_empty: true,
-        entity_encoding : 'raw',
-
-        formats: {
-            bold: { inline: 'b' },  
-            italic: { inline: 'i' },
-            underline: { inline: 'u' },
-            div: { block: 'div', classes: 'col-ish', wrapper: true },
-            // blockquote: { block: 'blockquote', classes: 'col', wrapper: true },
-        },
-        content_style: `
-            .mce-content-body:not([dir=rtl]) blockquote {
-                border-left: none !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-        `,
-        // protect: [
-        //     /\<\/?(if|endif)\>/g,  // Protect <if> & </endif>
-        //     /\<xsl\:[^>]+\>/g,  // Protect <xsl:...>
-        //     /<\?php.*?\?>/g,  // Protect php code
-        // ],
-        setup: function(editor) {
-            editor.on('init keydown change', function(e) {
-                document.getElementById('get-content').innerHTML = editor.getContent();
-            });
-        }
-    });    
-    
-    function datepickerForm() {
-        // var start = new Date();
-        // var end = new Date(new Date().setYear(start.getFullYear() + 1));
-        
-        (function($) {
-
-            $( "#input-start-date" ).datepicker({
-                dateFormat: 'dd/mm/yy',
-                // startDate: start,
-                // endDate: end,
-                minDate: +1,
-                yearRange: new Date().getFullYear() + ':' + new Date().getFullYear(),
-                onSelect: function(date) {
-                    var start = $('#input-start-date').datepicker('getDate');
-                    var date = new Date(Date.parse(start));
-                    date.setDate(date.getDate() + 1);
-                    var newDate = date.toDateString();
-                    newDate = new Date(Date.parse(newDate));
-                    $('#input-end-date').datepicker("option", "minDate", newDate);
-                },
-            });
-
-            $( "#input-end-date" ).datepicker({
-                dateFormat: 'dd/mm/yy',
-                // startDate: start,
-                // endDate: end,
-                minDate: +2,
-                yearRange: new Date().getFullYear() + ':' + new Date().getFullYear(),
-                enableOnReadonly: true,
-            });
-        })(jQuery);
-    }
-  
-    datepickerForm();
 
 </script>
 <?php 
@@ -250,6 +162,7 @@
                 $error['thumbnail']['size'] = "*Kích thước hình ảnh quá lớn";
             }
         }
+
 
         if(empty(trim(strip_tags($content)))) {
             $error['content']['required'] = "*Không được để trống";
@@ -339,7 +252,6 @@
                 valueStartDate.value = '<?php echo (!empty($_POST['input-start-date'])) ? $_POST['input-start-date'] : false; ?>';
                 valueEndDate.value = '<?php echo (!empty($_POST['input-end-date'])) ? $_POST['input-end-date'] : false; ?>';
                 valueBalance.value = '<?php echo (!empty($_POST['input-balance'])) ? $_POST['input-balance'] : false; ?>';
-                // valueThumbnail.value = '<?php // echo (!empty($_POST['input-thumbnail'])) ? $_POST['input-thumbnail'] : false; ?>';
                 valueContent.innerHTML = '<?php echo (!empty($_POST['input-content'])) ? $_POST['input-content'] : false; ?>';
            </script>
 
