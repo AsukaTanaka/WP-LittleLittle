@@ -97,29 +97,38 @@ function tinyMCE() {
         },
         images_upload_credentials: true,
         file_picker_callback: (callback, value, meta) => {
-            var input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('accept', '.jpg, .jpeg, .png');
+            var input = document.getElementById('get-array-picture');
+            input.click();
 
             input.onchange = function() {
                 var file = this.files[0];
                 if(file) {
-                    var reader = new FileReader();
+                    // var reader = new FileReader();
                     
-                    reader.onload = function() {
-                        var id = 'blobid' + (new Date()).getTime();
-                        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                        var base64 = reader.result.split(',')[1];
-                        var blobInfo = blobCache.create(id, file, base64);
-                        blobCache.add(blobInfo);
-                        callback(blobInfo.blobUri(), { title: file.name });
-                    };
-                }
-                
-                reader.readAsDataURL(file);
+                    // reader.onload = function() {
+                    //     var id = 'blobid' + (new Date()).getTime();
+                    //     var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    //     var base64 = reader.result.split(',')[1];
+                    //     var blobInfo = blobCache.create(id, file, base64);
+                    //     blobCache.add(blobInfo);
+                    //     callback(blobInfo.blobUri(), { title: file.name });
 
+                    // };
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        callback(e.target.result, {
+                            // alt: file.name,
+                            title: file.name,
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+                // if(input.value) {
+                //     let valueStore = input.value.match(regExp);
+                //     input.setAttribute('value', valueStore);
+                // }
+                
             };
-            input.click();
         },
 
     });    

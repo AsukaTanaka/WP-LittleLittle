@@ -59,6 +59,7 @@
                     <textarea name="input-content" id="input-content" class="input-textarea"></textarea>
                 </div>
                 <textarea name="get-content" id="get-content" style="display: none"></textarea>
+                <input id="get-array-picture" type="file" name="get-array-picture" style="display: none">
                 <div class="form-link">
                     <a href="<?php echo admin_url('admin.php?page=event') ?>"><i class='bx bx-left-arrow-alt'></i> Trở lại trang sự kiện</a>
                     <input type="submit" class="button-submit button-click-submit" name="create-event" value="Tạo Mới" style="cursor: pointer !important">
