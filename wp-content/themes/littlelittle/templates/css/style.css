@@ -990,13 +990,13 @@ textarea {
 .site-section .row-section-event .content .col-lg-4 img,
 .site-section .row-section-event .content .col-lg-8 img {
     max-width: 360px !important;
-    width: 100%;
+    width: 100% !important;
     border-radius: 10px;
     object-fit: cover;
 }
 
 .site-section .row-section-event .content .col-lg-4 img {
-    height: 220px;
+    height: 220px !important;
 }
 
 .site-section .row-section-event .content .col-lg-4 .card-body {
@@ -1024,12 +1024,14 @@ textarea {
 }
 
 .site-section .row-section-event .content .col-lg-8 .grid-ish p b,
+.site-section .row-section-event .content .col-lg-8 .grid-ish p strong,
 .site-section .row-section-event .content .col-lg-8 .grid-ish p sub,
 .site-section .row-section-event .content .col-lg-8 .grid-ish p sup {
     color: var(--orange);
 }
 
-.site-section .row-section-event .content .col-lg-8 .grid-ish:nth-child(1) p b:nth-child(1) {
+.site-section .row-section-event .content .col-lg-8 .grid-ish:nth-child(1) p b:nth-child(1),
+.site-section .row-section-event .content .col-lg-8 .grid-ish:nth-child(1) p strong:nth-child(1) {
     font-size: .95rem;
 }
 

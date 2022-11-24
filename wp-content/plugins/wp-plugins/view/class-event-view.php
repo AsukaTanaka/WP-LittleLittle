@@ -44,7 +44,8 @@ class WP_Custom_Event extends WP_List_Table {
             case '1' : 
                 return '1';
             // Doesn't match the above so return the database field contents
-            
+            case $item['balance'] : 
+                return number_format($item['balance'], 0, '', '.') . ' VNĐ ';
             default : 
                 return $item[$column_name];
         }

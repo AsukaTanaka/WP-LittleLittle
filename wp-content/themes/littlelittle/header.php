@@ -73,6 +73,23 @@
         .swal2-close:focus {
             box-shadow: none !important;
         }
+
+        .site-section .row-section-event .content .col-lg-8 img {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .site-section .row-section-event .content .col-lg-8 .grid-ish p b,
+        .site-section .row-section-event .content .col-lg-8 .grid-ish p strong {
+            color: #fa7d09;
+        }
+
+        .site-section .row-section-event .content .col-lg-8 .grid-ish:nth-child(1) p b:nth-child(1),
+        .site-section .row-section-event .content .col-lg-8 .grid-ish:nth-child(1) p strong:nth-child(1) {
+            font-size: .95rem;
+        }
+
+
     </style>
 </head>
 <body>

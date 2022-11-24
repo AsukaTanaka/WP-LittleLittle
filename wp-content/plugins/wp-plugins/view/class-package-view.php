@@ -39,7 +39,7 @@ class WP_Custom_Package extends WP_List_Table {
         switch ($item[$column_name]) 
         {
             case $item['price'] : 
-                return number_format($item['price'], 0, '', ',') . ' vnđ ';
+                return number_format($item['price'], 0, '', '.') . ' VNĐ ';
             // Doesn't match the above so return the database field contents
             default : 
                 return $item[$column_name];

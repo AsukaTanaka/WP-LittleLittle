@@ -29,9 +29,9 @@ if (isset($_GET['id'])) {
                     <input type="submit" class="button-submit" name="create-package" value="Tạo Mới" style="cursor: pointer !important">
                 </div> -->
                 <div class="form-link">
-                        <a href="<?php echo admin_url('admin.php?page=package') ?>"><i class='bx bx-left-arrow-alt'></i> Trở lại trang liên hệ</a>
-                        <input type="submit" class="button-submit button-click-submit" name="update-package" value="Cập Nhật" style="cursor: pointer !important">
-                    </div>
+                    <a href="<?php echo admin_url('admin.php?page=package') ?>"><i class='bx bx-left-arrow-alt'></i> Trở lại trang liên hệ</a>
+                    <input type="submit" class="button-submit button-click-submit" name="update-package" value="Cập Nhật" style="cursor: pointer !important">
+                </div>
             </form>
         </div>
     </div>

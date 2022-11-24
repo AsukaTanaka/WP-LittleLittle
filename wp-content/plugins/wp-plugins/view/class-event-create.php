@@ -280,7 +280,7 @@ if (isset($_POST['create-event'])) {
     }
 
 
-    if (empty(trim(strip_tags($content)))) {
+    if (empty(trim(strip_tags($content))) || empty(trim($content))) {
         $error['content']['required'] = "*Không được để trống";
     } else {
         if (strlen(trim(strip_tags($content))) < 50 || strlen(trim(strip_tags($content))) > 2000) {
