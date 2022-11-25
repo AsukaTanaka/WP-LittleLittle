@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Simple Transactional Email</title>
+    <title></title>
     <style>
       /* -------------------------------------
           GLOBAL RESETS
@@ -356,7 +356,7 @@
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="" target="_blank">Hành động</a> </td>
+                                      <td> <a href="<?php echo home_url() . '/contact' ?>" target="_blank">Hành động</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>

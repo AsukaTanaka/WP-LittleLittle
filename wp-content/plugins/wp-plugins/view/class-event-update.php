@@ -56,7 +56,7 @@ if (isset($_GET['id'])) {
                             <div class="btn-cancel" id="btn-cancel"><i class="bx bx-x"></i></div>
                             <div class="file-name" id="file-name"></div>
                         </div>
-                        <input type="file" class="btn-default" id="input-thumbnail" name="input-thumbnail" style="display: none" value="<?php echo $select[0]->thumbnail ?>">
+                        <input type="file" class="btn-default" id="input-thumbnail" name="input-thumbnail" style="display: none">
                         <button onclick="defaultBtnActive()" id="btn-custom" class="btn-custom" type="button">Chọn tệp</button>
                     </div>
                     <div class="field">
@@ -111,6 +111,8 @@ if (isset($_GET['id'])) {
         $content = $_POST['input-content'];
         $newContent = $_POST['get-content'];
 
+        $validateFile = $_FILES['input-thumbnail']['name'];
+
         if (empty(trim($title))) {
             $error['title']['required'] = "*Không được để trống";
         } else {
@@ -147,21 +149,7 @@ if (isset($_GET['id'])) {
             }
         }
 
-        // if ($_FILES['input-thumbnail']['error'] === 4) {
-        //     $error['thumbnail']['required'] = "*Không được để trống";
-        // } else {
-        //     $fileName = $_FILES['input-thumbnail']['name'];
-        //     $fileSize = $_FILES['input-thumbnail']['size'];
-        //     $tmpName = $_FILES['input-thumbnail']['tmp_name'];
-        //     $validImageExtension = ['jpg', 'jpeg', 'png'];
-        //     $imageExtension = explode('.', $fileName);
-        //     $imageExtension = strtolower(end($imageExtension));
-        //     if (!in_array($imageExtension, $validImageExtension)) {
-        //         $error['thumbnail']['invalid'] = "*Hình ảnh không hợp lệ";
-        //     } else if ($fileSize > 1000000) {
-        //         $error['thumbnail']['size'] = "*Kích thước hình ảnh quá lớn";
-        //     }
-        // }
+
 
 
         if (empty(trim(strip_tags($content))) || empty(trim($content))) {
@@ -172,98 +160,209 @@ if (isset($_GET['id'])) {
             }
         }
 
-        if (empty($error)) {
-            // $newImageName = uniqid();
-            // $newImageName .= '.' . $imageExtension;
-
-            // $folderPath = "/wp-uploads/files/thumbnail/";
-
-            // // mkdir(ABSPATH . $folderPath, 0777, true);
-            // $target_path = ABSPATH . $folderPath . "/" . $newImageName;
-
-
-            // chmod("{$target_path}", 0777);
-            // if (move_uploaded_file($tmpName, $target_path)) {
-                
-            // }
-            $wpdb->update(
-                $table__name,
-                array(
-                    'title' => $title,
-                    'address' => $address,
-                    'start_date' => $startDate,
-                    'end_date' => $endDate,
-                    'balance' => $balance,
-                    'thumbnail' => $select[0]->thumbnail,
-                    'content' => stripslashes($newContent),
-                ),
-                array('id' => $id)
-            );
-
-    ?>
-
-            <script type="text/javascript">
-                window.location = '<?php echo get_site_url() . '/wp-admin/admin.php?page=event'; ?>';
-            </script>
-
-        <?php
+        if($validateFile == "") {
+            if (empty($error)) {
+                // $newImageName = uniqid();
+                // $newImageName .= '.' . $imageExtension;
+    
+                // $folderPath = "/wp-uploads/files/thumbnail/";
+    
+                // // mkdir(ABSPATH . $folderPath, 0777, true);
+                // $target_path = ABSPATH . $folderPath . "/" . $newImageName;
+    
+    
+                // chmod("{$target_path}", 0777);
+                // if (move_uploaded_file($tmpName, $target_path)) {
+                    
+                // }
+                $wpdb->update(
+                    $table__name,
+                    array(
+                        'title' => $title,
+                        'address' => $address,
+                        'start_date' => $startDate,
+                        'end_date' => $endDate,
+                        'balance' => $balance,
+                        'thumbnail' => $select[0]->thumbnail,
+                        'content' => stripslashes($newContent),
+                    ),
+                    array('id' => $id)
+                );
+    
+            ?>
+    
+                <script type="text/javascript">
+                    window.location = '<?php echo get_site_url() . '/wp-admin/admin.php?page=event'; ?>';
+                </script>
+    
+            <?php
+            } else {
+            ?>
+    
+                <script type="text/javascript">
+                    errorTitle.innerHTML =
+                        '<?php
+                            echo (!empty($error['title']['required'])) ? $error['title']['required'] : false;
+                            echo (!empty($error['title']['strlen'])) ? $error['title']['strlen'] : false;
+                            ?>';
+    
+                    errorAddress.innerHTML =
+                        '<?php
+                            echo (!empty($error['address']['required'])) ? $error['address']['required'] : false;
+                            echo (!empty($error['address']['strlen'])) ? $error['address']['strlen'] : false;
+                            ?>';
+    
+                    errorStartDate.innerHTML =
+                        '<?php
+                            echo (!empty($error['start-date']['required'])) ? $error['start-date']['required'] : false;
+                            ?>';
+    
+                    errorEndDate.innerHTML =
+                        '<?php
+                            echo (!empty($error['end-date']['required'])) ? $error['end-date']['required'] : false;
+                            ?>';
+    
+                    errorBalance.innerHTML =
+                        '<?php
+                            echo (!empty($error['balance']['required'])) ? $error['balance']['required'] : false;
+                            echo (!empty($error['balance']['numeric'])) ? $error['balance']['numeric'] : false;
+                            echo (!empty($error['balance']['filter'])) ? $error['balance']['filter'] : false;
+                            ?>';
+    
+                    // errorThumbnail.innerHTML =
+                    //     '<?php
+                    //         echo (!empty($error['thumbnail']['required'])) ? $error['thumbnail']['required'] : false;
+                    //         echo (!empty($error['thumbnail']['invalid'])) ? $error['thumbnail']['invalid'] : false;
+                    //         echo (!empty($error['thumbnail']['size'])) ? $error['thumbnail']['size'] : false;
+                    //         ?>';
+    
+                    errorContent.innerHTML =
+                        '<?php
+                            echo (!empty($error['content']['required'])) ? $error['content']['required'] : false;
+                            echo (!empty($error['content']['strlen'])) ? $error['content']['strlen'] : false;
+    
+                            ?>';
+    
+                    valueTitle.value = '<?php echo (!empty($_POST['input-title'])) ? $_POST['input-title'] : false; ?>';
+                    valueAddress.value = '<?php echo (!empty($_POST['input-address'])) ? $_POST['input-address'] : false; ?>';
+                    valueStartDate.value = '<?php echo (!empty($_POST['input-start-date'])) ? $_POST['input-start-date'] : false; ?>';
+                    valueEndDate.value = '<?php echo (!empty($_POST['input-end-date'])) ? $_POST['input-end-date'] : false; ?>';
+                    valueBalance.value = '<?php echo (!empty($_POST['input-balance'])) ? $_POST['input-balance'] : false; ?>';
+                    // valueContent.innerHTML = '<?php //echo (!empty($_POST['input-content'])) ? stripslashes($_POST['input-content']) : false; ?>';
+                </script>
+    
+    <?php
+            }
         } else {
-        ?>
+            if ($_FILES['input-thumbnail']['error'] === 4) {
+                $error['thumbnail']['required'] = "*Không được để trống";
+            } else {
+                $fileName = $_FILES['input-thumbnail']['name'];
+                $fileSize = $_FILES['input-thumbnail']['size'];
+                $tmpName = $_FILES['input-thumbnail']['tmp_name'];
+                $validImageExtension = ['jpg', 'jpeg', 'png'];
+                $imageExtension = explode('.', $fileName);
+                $imageExtension = strtolower(end($imageExtension));
+                if (!in_array($imageExtension, $validImageExtension)) {
+                    $error['thumbnail']['invalid'] = "*Hình ảnh không hợp lệ";
+                } else if ($fileSize > 1000000) {
+                    $error['thumbnail']['size'] = "*Kích thước hình ảnh quá lớn";
+                }
+            }
 
-            <script type="text/javascript">
-                errorTitle.innerHTML =
-                    '<?php
-                        echo (!empty($error['title']['required'])) ? $error['title']['required'] : false;
-                        echo (!empty($error['title']['strlen'])) ? $error['title']['strlen'] : false;
-                        ?>';
-
-                errorAddress.innerHTML =
-                    '<?php
-                        echo (!empty($error['address']['required'])) ? $error['address']['required'] : false;
-                        echo (!empty($error['address']['strlen'])) ? $error['address']['strlen'] : false;
-                        ?>';
-
-                errorStartDate.innerHTML =
-                    '<?php
-                        echo (!empty($error['start-date']['required'])) ? $error['start-date']['required'] : false;
-                        ?>';
-
-                errorEndDate.innerHTML =
-                    '<?php
-                        echo (!empty($error['end-date']['required'])) ? $error['end-date']['required'] : false;
-                        ?>';
-
-                errorBalance.innerHTML =
-                    '<?php
-                        echo (!empty($error['balance']['required'])) ? $error['balance']['required'] : false;
-                        echo (!empty($error['balance']['numeric'])) ? $error['balance']['numeric'] : false;
-                        echo (!empty($error['balance']['filter'])) ? $error['balance']['filter'] : false;
-                        ?>';
-
-                // errorThumbnail.innerHTML =
-                //     '<?php
-                //         echo (!empty($error['thumbnail']['required'])) ? $error['thumbnail']['required'] : false;
-                //         echo (!empty($error['thumbnail']['invalid'])) ? $error['thumbnail']['invalid'] : false;
-                //         echo (!empty($error['thumbnail']['size'])) ? $error['thumbnail']['size'] : false;
-                //         ?>';
-
-                errorContent.innerHTML =
-                    '<?php
-                        echo (!empty($error['content']['required'])) ? $error['content']['required'] : false;
-                        echo (!empty($error['content']['strlen'])) ? $error['content']['strlen'] : false;
-
-                        ?>';
-
-                valueTitle.value = '<?php echo (!empty($_POST['input-title'])) ? $_POST['input-title'] : false; ?>';
-                valueAddress.value = '<?php echo (!empty($_POST['input-address'])) ? $_POST['input-address'] : false; ?>';
-                valueStartDate.value = '<?php echo (!empty($_POST['input-start-date'])) ? $_POST['input-start-date'] : false; ?>';
-                valueEndDate.value = '<?php echo (!empty($_POST['input-end-date'])) ? $_POST['input-end-date'] : false; ?>';
-                valueBalance.value = '<?php echo (!empty($_POST['input-balance'])) ? $_POST['input-balance'] : false; ?>';
-                // valueContent.innerHTML = '<?php //echo (!empty($_POST['input-content'])) ? stripslashes($_POST['input-content']) : false; ?>';
-            </script>
-
-<?php
+            if (empty($error)) {
+                $newImageName = uniqid();
+                $newImageName .= '.' . $imageExtension;
+    
+                $folderPath = "/wp-uploads/files/thumbnail/";
+    
+                // mkdir(ABSPATH . $folderPath, 0777, true);
+                $target_path = ABSPATH . $folderPath . "/" . $newImageName;
+    
+    
+                // chmod("{$target_path}", 0777);
+                if (move_uploaded_file($tmpName, $target_path)) {
+                    $wpdb->update(
+                        $table__name,
+                        array(
+                            'title' => $title,
+                            'address' => $address,
+                            'start_date' => $startDate,
+                            'end_date' => $endDate,
+                            'balance' => $balance,
+                            'thumbnail' => $newImageName,
+                            'content' => stripslashes($newContent),
+                        ),
+                        array('id' => $id)
+                    );
+                }
+    
+            ?>
+    
+                <script type="text/javascript">
+                    window.location = '<?php echo get_site_url() . '/wp-admin/admin.php?page=event'; ?>';
+                </script>
+    
+            <?php
+            } else {
+            ?>
+    
+                <script type="text/javascript">
+                    errorTitle.innerHTML =
+                        '<?php
+                            echo (!empty($error['title']['required'])) ? $error['title']['required'] : false;
+                            echo (!empty($error['title']['strlen'])) ? $error['title']['strlen'] : false;
+                            ?>';
+    
+                    errorAddress.innerHTML =
+                        '<?php
+                            echo (!empty($error['address']['required'])) ? $error['address']['required'] : false;
+                            echo (!empty($error['address']['strlen'])) ? $error['address']['strlen'] : false;
+                            ?>';
+    
+                    errorStartDate.innerHTML =
+                        '<?php
+                            echo (!empty($error['start-date']['required'])) ? $error['start-date']['required'] : false;
+                            ?>';
+    
+                    errorEndDate.innerHTML =
+                        '<?php
+                            echo (!empty($error['end-date']['required'])) ? $error['end-date']['required'] : false;
+                            ?>';
+    
+                    errorBalance.innerHTML =
+                        '<?php
+                            echo (!empty($error['balance']['required'])) ? $error['balance']['required'] : false;
+                            echo (!empty($error['balance']['numeric'])) ? $error['balance']['numeric'] : false;
+                            echo (!empty($error['balance']['filter'])) ? $error['balance']['filter'] : false;
+                            ?>';
+    
+                    errorThumbnail.innerHTML =
+                        '<?php
+                            echo (!empty($error['thumbnail']['required'])) ? $error['thumbnail']['required'] : false;
+                            echo (!empty($error['thumbnail']['invalid'])) ? $error['thumbnail']['invalid'] : false;
+                            echo (!empty($error['thumbnail']['size'])) ? $error['thumbnail']['size'] : false;
+                            ?>';
+    
+                    errorContent.innerHTML =
+                        '<?php
+                            echo (!empty($error['content']['required'])) ? $error['content']['required'] : false;
+                            echo (!empty($error['content']['strlen'])) ? $error['content']['strlen'] : false;
+    
+                            ?>';
+    
+                    valueTitle.value = '<?php echo (!empty($_POST['input-title'])) ? $_POST['input-title'] : false; ?>';
+                    valueAddress.value = '<?php echo (!empty($_POST['input-address'])) ? $_POST['input-address'] : false; ?>';
+                    valueStartDate.value = '<?php echo (!empty($_POST['input-start-date'])) ? $_POST['input-start-date'] : false; ?>';
+                    valueEndDate.value = '<?php echo (!empty($_POST['input-end-date'])) ? $_POST['input-end-date'] : false; ?>';
+                    valueBalance.value = '<?php echo (!empty($_POST['input-balance'])) ? $_POST['input-balance'] : false; ?>';
+                    // valueContent.innerHTML = '<?php //echo (!empty($_POST['input-content'])) ? stripslashes($_POST['input-content']) : false; ?>';
+                </script>
+    
+    <?php
+            }
         }
     }
+        
 }
 ?>

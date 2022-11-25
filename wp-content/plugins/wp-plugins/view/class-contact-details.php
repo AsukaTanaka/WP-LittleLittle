@@ -71,7 +71,7 @@ if (isset($_GET['id'])) {
         $address = $_POST['input-address'];
         $comment = $_POST['input-comment'];
 
-        $phpmailer->SMTPDebug = 2;
+        $phpmailer->SMTPDebug = 0;
         $phpmailer->isSMTP();
         $phpmailer->Host = SMTP_HOST;
         $phpmailer->SMTPAuth = SMTP_AUTH;
@@ -83,7 +83,12 @@ if (isset($_GET['id'])) {
         $phpmailer->setFrom(SMTP_USER);
         $phpmailer->addAddress($email);
         $phpmailer->isHTML(true);
-        $phpmailer->Body = $comment;
+
+        ob_start();
+        include 'class-template-mail.php';
+        $body = ob_get_contents();
+        $phpmailer->Body = $body;
+        ob_get_clean();
 
         if ($phpmailer->send()) {
             $wpdb->update(
