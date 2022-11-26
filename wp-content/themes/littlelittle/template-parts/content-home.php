@@ -1,5 +1,20 @@
-<!-- Section Start -->
-<section class="site-section">
+<?php 
+
+global $wpdb;
+$table__package = $wpdb->prefix . 'package';
+$table__ticket = $wpdb->prefix . 'ticket';
+$error__package = array();
+
+$select = $wpdb->get_results("SELECT * FROM $table__package");
+
+if(empty($select)) {
+    $error__package['package']['empty'] = 'Không Tìm Thấy Kết Quả !';
+}
+
+?>
+
+    <!-- Section Start -->
+    <section class="site-section">
         <div class="bg-vector">
             <div class="container">
                 <div class="row row-block row-lgt">
@@ -81,21 +96,37 @@
                                         <div class="col-12 col-md-12">
                                             <div class="inline-form">
                                                 <div class="select-box">
-                                                    <input type="text" name="package" id="package" class="input-text">
-                                                    <div class="options-container">
-                                                        <div class="option">
-                                                            <input type="radio" name="package" id="family" class="input-radio">
-                                                            <label for="">Gói gia dinh</label>
-                                                        </div>
-                                                        <div class="option">
-                                                            <input type="radio" name="package" id="individual" class="input-radio">
-                                                            <label for="">Gói cá nhân</label>
-                                                        </div>
-                                                        <div class="option">
-                                                            <input type="radio" name="package" id="group" class="input-radio">
-                                                            <label for="">Gói theo đoàn</label>
-                                                        </div>
-                                                    </div>
+                                                    <input type="text" name="input-package" id="package" class="input-text">
+                                                    <?php 
+                                                        if(!empty($error__package['package']['empty'])) {
+                                                            ?>
+                                                                <div class="options-container">
+                                                                    <!-- <div class="option">
+                                                                        <input type="radio" name="" id="" class="input-radio">
+                                                                        <label for=""></label>
+                                                                    </div> -->
+                                                                    <div class="option-error">
+                                                                        <?php echo $error__package['package']['empty']; ?>
+                                                                    </div>
+                                                                </div>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                                <div class="options-container">
+                                                            <?php
+                                                            foreach ($select as $row) {
+                                                                ?>
+                                                                    <div class="option">
+                                                                        <input type="radio" name="package" value="<?php echo $row->id ?>" class="input-radio">
+                                                                        <label for=""><?php echo $row->package ?></label>
+                                                                    </div>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                                </div>
+                                                            <?php
+                                                        }
+                                                    ?>
                                                 </div>
                                                 <a class="button-select button-icon button-yellow" id="js-select-package">
                                                     <i class="bx bxs-down-arrow"></i>
@@ -105,9 +136,9 @@
                                         <div class="col-12 col-md-12">
                                             <div class="inline-form">
                                                 <div class="date-box">
-                                                    <input type="text" name="amount" id="amount" class="input-text input-number input-60">
+                                                    <input type="text" name="input-amount" id="amount" class="input-text input-number input-60">
                                                     <div class="form-date">
-                                                        <input type="text" name="date" id="js-datepick" class="input-text">
+                                                        <input type="text" name="input-date" id="js-datepick" class="input-text">
                                                         <div class="bg-datepick" id="js-calendar">
                                                             <div class="calendar-header">
                                                                 <i class="bx bx-chevron-left prev-month" id="js-pre-month"></i>
@@ -137,17 +168,17 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-12">
-                                            <input type="text" name="fullname" id="fullname" class="input-text">
+                                            <input type="text" name="input-fullname" id="fullname" class="input-text">
                                         </div>
                                         <div class="col-12 col-md-12">
-                                            <input type="text" name="phone" id="phone" class="input-text">
+                                            <input type="text" name="input-phone" id="phone" class="input-text">
                                         </div>
                                         <div class="col-12 col-md-12">
-                                            <input type="text" name="email" id="email" class="input-text">
+                                            <input type="text" name="input-email" id="email" class="input-text">
                                         </div>
                                         <div class="col-12 col-md-12">
                                             <div class="button-form">
-                                                <button type="submit" class="button-red button-submit">Đặt Vé</button>
+                                                <button type="submit" class="button-red button-submit" name="create-ticket">Đặt Vé</button>
                                             </div>
                                         </div>
                                     </div>
@@ -160,3 +191,102 @@
         </div>
     </section>
     <!-- Section End -->
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
+    const valueFullname = document.querySelector('#js-form-index #fullname');
+    const valuePhone = document.querySelector('#js-form-index #phone');
+    const valueEmail = document.querySelector('#js-form-index #email');
+    const valuePackage = document.querySelector('#js-form-index #package');
+    const valueAmount = document.querySelector('#js-form-index #amount');
+    const valueDatepick = document.querySelector('#js-form-index #js-datepick');
+</script>
+<?php 
+    if(isset($_POST['create-ticket'])) {
+        $package = $_POST['input-package'];
+        $amount = $_POST['input-amount'];
+        $date = $_POST['input-date'];
+        $fullname = $_POST['input-fullname'];
+        $phone = $_POST['input-phone'];
+        $email = $_POST['input-email'];
+        $status = false;
+
+        $currentDate = date("d/m/Y");
+
+        $error = array();
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+
+        $get_id_package =  $wpdb->get_results("SELECT * FROM $table__package WHERE package = '$package'");
+        $create_url = uniqid();
+
+        $base64 = base64_encode($create_url);
+
+        if(empty(trim($amount)) || empty(trim($date)) || empty(trim($fullname)) || empty(trim($phone)) || empty(trim($email))) {
+            $error['message']['required'] = 'Vui lòng điền đầy đủ thông tin!';
+        } else {
+            if(empty($select) || empty(trim($package))) {
+                $error['message']['package'] = 'Chưa có loại gói, không thể tạo vé!';
+            } else if(!filter_var(trim($email), FILTER_VALIDATE_EMAIL) || !preg_match('/^\+?[0-9]{10}$/', $phone) || !is_numeric($amount)) {
+                $error['message']['filter'] = 'Thông tin không hợp lệ, vui lòng kiểm tra lại!';
+            } else if (filter_var($amount, FILTER_VALIDATE_INT, array("options" => array("min_range" => 1))) === false) {
+                $error['message']['amount'] = 'Số lượng phải từ 1 trở lên!';
+            } else if($date < $currentDate) {
+                $error['message']['datetime'] = 'Ngày sử dụng phải từ hôm nay trở đi!';
+            }
+        }
+
+        if(empty($error)) {
+
+            session_start();            
+            $_SESSION['base64'] = $base64;
+
+            $wpdb->insert($table__ticket, array(
+                'fullname' => $fullname,
+                'phone' => $phone,
+                'email' => $email,
+                'amount' => $amount,
+                'start_use' => $date,
+                'create_at' => date('j/n/Y - g:i a'),
+                'status' => $status,
+                'base64' => $base64,
+                'package_id' => $get_id_package[0]->id,
+            ));
+            ?>
+            
+            <script type="text/javascript">
+                window.location = '<?php echo home_url() . '/payment' ?>';
+            </script>
+
+            <?php
+        } else {
+            ?>
+            <script type="text/javascript">
+            Swal.fire({
+                html:
+                    '<div class="alert-error-contact">' +
+                    '<img src="<?php echo get_template_directory_uri() . "/templates/images/icon/error.png" ?>" alt="">' + '</div>' +
+                    '<div class="alert-message-contact">' +
+                    '<p class="sa2-text"><?php echo (!empty($error['message']['required'])) ? $error['message']['required'] : false; echo (!empty($error['message']['package'])) ? $error['message']['package'] : false; echo (!empty($error['message']['filter'])) ? $error['message']['filter'] : false; echo (!empty($error['message']['amount'])) ? $error['message']['amount'] : false; echo (!empty($error['message']['datetime'])) ? $error['message']['datetime'] : false; ?></p>'
+                    + '</div>',
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false,
+            }).then((result) => { 
+                /* return */
+            });    
+            /* get value without return sweetalert */
+            valueFullname.value = '<?php echo (!empty($_POST['input-fullname'])) ? $_POST['input-fullname'] : false; ?>';
+            valuePhone.value = '<?php echo (!empty($_POST['input-phone'])) ? $_POST['input-phone'] : false; ?>';
+            valueEmail.value = '<?php echo (!empty($_POST['input-email'])) ? $_POST['input-email'] : false; ?>';
+            valuePackage.value = '<?php echo (!empty($_POST['input-package'])) ? $_POST['input-package'] : false; ?>';
+            valueAmount.value = '<?php echo (!empty($_POST['input-amount'])) ? $_POST['input-amount'] : false; ?>';
+            valueDatepick.value = '<?php echo (!empty($_POST['input-date'])) ? $_POST['input-date'] : false; ?>';
+        </script>
+            <?php
+        }
+       
+    }
+
+   
+?>
+

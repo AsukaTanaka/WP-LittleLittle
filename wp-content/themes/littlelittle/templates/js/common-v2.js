@@ -54,7 +54,7 @@ function formIndex() {
 
 function selectMultipleButton() {
     // Package
-    const selectValue = document.querySelector('.form-index .input-text');
+    const selectValue = document.querySelector('.form-index .select-box .input-text');
     const optionsContainer = document.querySelector('.form-index .options-container');
     const optionList = document.querySelectorAll('.form-index .option');
     const buttonSelect = document.querySelector('.form-index .button-select');
@@ -71,6 +71,16 @@ function selectMultipleButton() {
     buttonDate.addEventListener("click", () => {
         bgDatepick.classList.toggle("active");
         optionsContainer.classList.remove("active");
+    });
+
+    document.addEventListener('mouseup', function(e) {
+        if(!bgDatepick.is(e.target) || bgDatepick.has(e.target).length === 0) {
+            bgDatepick.classList.remove("active");
+        }
+        
+        if(!optionsContainer.is(e.target) || optionsContainer.has(e.target).length === 0) {
+            optionsContainer.classList.remove("active");
+        }
     });
 
     optionList.forEach(o => {

@@ -9,86 +9,18 @@
     <link rel="icon" href="" type="image/png">
     <!-- Fonts -->
     <!-- Boxicons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"> -->
     <!-- Swiper -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/> -->
     <!-- Bootstrap 4 -->
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri() . '/templates/css/bootstrap.css' ?>" type="text/css">
+    <!-- <link rel="stylesheet" href="<?php //echo get_template_directory_uri() . '/templates/css/bootstrap.css' ?>" type="text/css"> -->
     <!-- Style CSS -->
-    <link rel="stylesheet" href="<?php  echo get_template_directory_uri() . '/templates/css/style.css'  ?>" type="text/css">
+    <!-- <link rel="stylesheet" href="<?php //echo get_template_directory_uri() . '/templates/css/style.css'  ?>" type="text/css"> -->
     <?php wp_head() ?>
     <style>
         html {
             margin-top: 0 !important;
         }
-        .swal2-popup {
-            width: 22em !important;
-            font-family: montserrat-medium !important;
-            border-radius: 14px !important; 
-        }
-        .swal2-html-container {
-            margin: 0 !important;
-            background: transparent;
-            border-radius: 14px 14px 0 0;
-        }
-        .swal2-html-container .alert-message-contact {
-            position: relative;
-            text-align: left !important;
-            padding: 15px 30px 5px !important;
-            width: 100%;
-            background-color: #FFFFFF;
-        }
-        .swal2-html-container .alert-message-contact > p.sa2-text {
-            margin: 0 !important;
-            font-size: 0.9rem !important;
-            line-height: 1.25 !important;
-        }
-        .swal2-html-container .alert-message-contact.success-contact {
-            padding: 30px 30px 5px !important;
-        }
-        .swal2-html-container .alert-error-contact {
-            margin-bottom: 0rem !important;
-            background-color: #FF8B15;
-            width: 100%;
-            height: 50px;
-        }
-        .swal2-html-container .alert-error-contact img {
-            margin: 0 auto;
-            position: absolute;
-            left: 50%;
-            top: 5px;
-            transform: translate(-50%, -50%);
-            width: 4.5rem;
-            height: 4.5rem;
-        }
-        .swal2-close {
-            color: #FF8A00 !important;
-            font-size: 1.5rem !important; 
-            width: 1em !important;
-            height: 1em !important;
-            position: absolute !important;
-            top: 5px !important;
-            right: 5px !important;
-        }
-        .swal2-close:focus {
-            box-shadow: none !important;
-        }
-
-        .site-section .row-section-event .content .col-lg-8 img {
-            width: 100% !important;
-            height: auto !important;
-        }
-
-        .site-section .row-section-event .content .col-lg-8 .grid-ish p b,
-        .site-section .row-section-event .content .col-lg-8 .grid-ish p strong {
-            color: #fa7d09;
-        }
-
-        .site-section .row-section-event .content .col-lg-8 .grid-ish:nth-child(1) p b:nth-child(1),
-        .site-section .row-section-event .content .col-lg-8 .grid-ish:nth-child(1) p strong:nth-child(1) {
-            font-size: .95rem;
-        }
-
 
     </style>
 </head>

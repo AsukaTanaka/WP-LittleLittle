@@ -100,15 +100,14 @@
     </section>
     <!-- Section End -->
 
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript">
-        const valueName = document.getElementById('input-name');
-        const valueEmail = document.getElementById('input-email');
-        const valuePhone = document.getElementById('input-phone');
-        const valueAddress = document.getElementById('input-address');
-        const valueComment = document.getElementById('input-comment');
-
-    </script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
+    const valueName = document.getElementById('input-name');
+    const valueEmail = document.getElementById('input-email');
+    const valuePhone = document.getElementById('input-phone');
+    const valueAddress = document.getElementById('input-address');
+    const valueComment = document.getElementById('input-comment');
+</script>
 <?php 
 
 global $wpdb;
@@ -162,7 +161,7 @@ if (isset($_POST["send-contact"])) {
                 valueAddress.value = '';
                 valuePhone.value = '';
                 valueComment.innerHTML = '';
-                window.location = '<?php echo 'http://localhost/WP-LittleLittle/contact' ?>';
+                window.location = '<?php echo home_url() . '/contact' ?>';
             }); 
         </script>
     

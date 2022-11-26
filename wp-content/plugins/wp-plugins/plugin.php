@@ -39,6 +39,7 @@ class GET__PLUGIN__FUNCTION {
             `start_use` varchar(255),
             `create_at` varchar(255),
             `status` boolean,
+            `base64` text,
             `package_id` int(11) NOT NULL,
             FOREIGN KEY (package_id) REFERENCES $table__name(id),
             PRIMARY KEY (id)
@@ -215,9 +216,9 @@ class GET__PLUGIN__FUNCTION {
 /**
  * Get Activation
  */
-// register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__TICKET'));
-// register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__PAYMENT'));
-// register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__BILL'));
+register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__TICKET'));
+register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__PAYMENT'));
+register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__BILL'));
 register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__EVENT'));
 register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__CONTACT'));
 register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__PACKAGE'));
@@ -227,9 +228,9 @@ register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__PA
  * Get Deactivation
  */
 
-// register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__TICKET'));
-// register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__PAYMENT'));
-// register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__BILL'));
+register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__TICKET'));
+register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__PAYMENT'));
+register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__BILL'));
 register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__EVENT'));
 register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__CONTACT'));
 register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__PACKAGE'));
@@ -265,7 +266,10 @@ function ADD__BILL__MENU()
     /**
      * Ticket
      */
-    add_menu_page(__('Bill', 'Bill'), 'Hoá Đơn', 'manage_options', 'bill', 'OUTPUT__BILL__VIEW');
+    add_menu_page(__('Bill', 'Bill'), 'Hóa Đơn', 'manage_options', 'bill', null);
+    add_submenu_page('bill', __('Bill', 'Bill'), 'Danh Sách', 'manage_options', 'bill', 'OUTPUT__BILL__VIEW');
+    add_submenu_page(null, __('Bill', 'Bill'), 'Xem Chi Tiết', 'manage_options', 'bill', 'OUTPUT__BILL__DETAILS');
+    add_submenu_page('bill', __('Ticket', 'Ticket'), 'Trạng Thái Vé', 'manage_options', 'ticket', 'OUTPUT__TICKET__STATUS');
     /**
      * Package
      */
@@ -359,21 +363,21 @@ function OUTPUT__BILL__VIEW()
     }
 }
 
-// function OUTPUT__BILL__DETAILS()
-// {
-//     if(file_exists(ROOT__PLUGIN__PATH . '/'))
-//     {
-//         require_once(ROOT__PLUGIN__PATH . '/');
-//     }
-// }
+function OUTPUT__BILL__DETAILS()
+{
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-bill-details.php'))
+    {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-bill-details.php');
+    }
+}
 
-// function OUTPUT__BILL__STATUS()
-// {
-//     if(file_exists(ROOT__PLUGIN__PATH . '/'))
-//     {
-//         require_once(ROOT__PLUGIN__PATH . '/');
-//     }
-// }
+function OUTPUT__TICKET__STATUS()
+{
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-ticket-status.php'))
+    {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-ticket-status.php');
+    }
+}
 
 // function OUTPUT__SCAN()
 // {
