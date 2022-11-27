@@ -73,15 +73,15 @@ function selectMultipleButton() {
         optionsContainer.classList.remove("active");
     });
 
-    document.addEventListener('mouseup', function(e) {
-        if(!bgDatepick.is(e.target) || bgDatepick.has(e.target).length === 0) {
-            bgDatepick.classList.remove("active");
-        }
+    // document.addEventListener('mouseup', function(e) {
+    //     if(!bgDatepick.is(e.target) || bgDatepick.has(e.target).length === 0) {
+    //         bgDatepick.classList.remove("active");
+    //     }
         
-        if(!optionsContainer.is(e.target) || optionsContainer.has(e.target).length === 0) {
-            optionsContainer.classList.remove("active");
-        }
-    });
+    //     if(!optionsContainer.is(e.target) || optionsContainer.has(e.target).length === 0) {
+    //         optionsContainer.classList.remove("active");
+    //     }
+    // });
 
     optionList.forEach(o => {
         o.addEventListener("click", (e)=> {

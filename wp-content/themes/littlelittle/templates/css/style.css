@@ -713,7 +713,7 @@ textarea {
     position: absolute;
     z-index: 50;
     border-radius: 10px;
-    padding: 4px 8px;
+    padding: 4px 8px 8px;
     opacity: 0;
     display: none;
     max-height: 0;
@@ -1066,7 +1066,7 @@ textarea {
 .site-section .row-section-payment .col-active-dot.col-section-01 .box-ticket {
     max-width: 17rem;
     /* left: 50%; */
-    top: -15px;
+    top: -25px;
     /* transform: translate(-50%, -50%); */
     background: linear-gradient(#ff000a, #c2000b);
 }
@@ -1775,6 +1775,10 @@ textarea {
         top: 15px;
         transform: translate(-50%, -50%);
     }    
+
+    .site-section .row-section-payment .col-active-dot.col-section-01 .box-ticket {
+        top: 5px !important;
+    }
 
     /* Success */
     .site-section .row-section-success .swiper-button-next,

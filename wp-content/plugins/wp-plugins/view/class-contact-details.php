@@ -87,6 +87,8 @@ if (isset($_GET['id'])) {
         ob_start();
         include 'class-template-mail.php';
         $body = ob_get_contents();
+        $body = str_replace('{get_email}', $email, $body);
+
         $phpmailer->Body = $body;
         ob_get_clean();
 

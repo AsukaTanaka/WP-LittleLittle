@@ -331,7 +331,7 @@
     </style>
   </head>
   <body>
-    <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
+    <span class="preheader"></span>
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
       <tr>
         <td>&nbsp;</td>
@@ -347,7 +347,7 @@
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Chào bạn,</p>
+                        <p>Chào bạn {get_email},</p>
                         <p>Chúng tôi đã nhận được phản hồi từ bạn, cảm ơn bạn đã đóng góp ý kiến để chúng tôi có thể khắc phục và cải thiện theo cầu.</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>

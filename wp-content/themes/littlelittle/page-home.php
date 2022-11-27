@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     get_header();
 ?>
 

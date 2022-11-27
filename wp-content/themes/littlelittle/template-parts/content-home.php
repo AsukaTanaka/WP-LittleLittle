@@ -237,7 +237,6 @@ if(empty($select)) {
 
         if(empty($error)) {
 
-            session_start();            
             $_SESSION['base64'] = $base64;
 
             $wpdb->insert($table__ticket, array(
@@ -248,13 +247,13 @@ if(empty($select)) {
                 'start_use' => $date,
                 'create_at' => date('j/n/Y - g:i a'),
                 'status' => $status,
-                'base64' => $base64,
+                'base64' =>  $base64,
                 'package_id' => $get_id_package[0]->id,
             ));
             ?>
             
             <script type="text/javascript">
-                window.location = '<?php echo home_url() . '/payment' ?>';
+                window.location = '<?php echo home_url() . '/payment?b=' . $base64 ?>';
             </script>
 
             <?php
