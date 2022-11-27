@@ -169,12 +169,7 @@ if(isset($_GET['b'])) {
         $cardholder_name = $_POST['input-cardhold'];
         $expiry_date = $_POST['input-expiry-date'];
         $cvv_cvc = $_POST['input-cvv-cvc'];
-        $salary = $get_salary;
-        $amount = $select[0]->amount;
-        $get_start_use = $select[0]->start_use;
-        $get_fullname = $select[0]->fullname;
-        $get_phone = $select[0]->phone;
-        $get_email = $select[0]->email;
+        
 
 
     }
