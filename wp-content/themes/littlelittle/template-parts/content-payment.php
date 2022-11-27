@@ -65,7 +65,7 @@ if(isset($_GET['b'])) {
                                         <h4>Vé Cổng - Vé <?php echo trim($get_package[0]->package, $str) ?></h4>
                                     </div>
                                 </div>
-                                <form class="form form-payment" id="js-payment-01">
+                                <form class="form form-payment">
                                     <div class="row">
                                         <div class="col-4">
                                             <label for="">Số tiền thanh toán</label>
@@ -169,7 +169,7 @@ if(isset($_GET['b'])) {
         $cardholder_name = $_POST['input-cardhold'];
         $expiry_date = $_POST['input-expiry-date'];
         $cvv_cvc = $_POST['input-cvv-cvc'];
-        
+
 
 
     }

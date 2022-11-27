@@ -15,7 +15,7 @@
     <!-- Bootstrap 4 -->
     <!-- <link rel="stylesheet" href="<?php //echo get_template_directory_uri() . '/templates/css/bootstrap.css' ?>" type="text/css"> -->
     <!-- Style CSS -->
-    <!-- <link rel="stylesheet" href="<?php //echo get_template_directory_uri() . '/templates/css/style.css'  ?>" type="text/css"> -->
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri() . '/templates/css/style.css'  ?>" type="text/css">
     <?php wp_head() ?>
     <style>
         html {
