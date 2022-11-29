@@ -226,6 +226,8 @@ if(empty($select)) {
         } else {
             if(empty($select) || empty(trim($package))) {
                 $error['message']['package'] = 'Chưa có loại gói, không thể tạo vé!';
+                ?>
+                <?php
             } else if(!filter_var(trim($email), FILTER_VALIDATE_EMAIL) || !preg_match('/^\+?[0-9]{10}$/', $phone) || !is_numeric($amount)) {
                 $error['message']['filter'] = 'Thông tin không hợp lệ, vui lòng kiểm tra lại!';
             } else if (filter_var($amount, FILTER_VALIDATE_INT, array("options" => array("min_range" => 1))) === false) {

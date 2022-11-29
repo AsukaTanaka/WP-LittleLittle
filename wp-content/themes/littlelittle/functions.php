@@ -37,8 +37,8 @@ function GET_CUSTOM_USER_CSS()
 
 function GET_CUSTOM_USER_JS()
 {
-    wp_enqueue_script('jquery', "https://code.jquery.com/jquery-3.2.1.min.js", array(), '', true);
-    wp_enqueue_script('swiper-js', "https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js", array(), '', true);
+    // wp_enqueue_script('jquery', "https://code.jquery.com/jquery-3.2.1.min.js", array(), '', true);
+    // wp_enqueue_script('swiper-js', "https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js", array(), '', true);
     // wp_enqueue_script('common', get_template_directory_uri() . "/templates/js/common.js", array('jquery'), '1.0', true);
 }
 
