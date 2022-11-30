@@ -5,6 +5,10 @@ const datePick = document.getElementById('js-datepick');
 const monthCalendar = document.getElementById('js-month-calendar');
 const itemCalendar = document.getElementById('js-item-calendar');
 
+const datePickMonth = document.getElementById('js-datepick-month');
+const yearCalendar = document.getElementById('js-year-calendar');
+const itemMonth = document.getElementById('js-item-month');
+
 const thisDate =  new Date();
 let thisMonth = thisDate.getMonth();
 let thisYear = thisDate.getFullYear();
@@ -13,6 +17,12 @@ const arrayMonth = [
     "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", 
     "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12",
 ]
+
+const arrayMonthYear = [
+    ["T1", "T2", "T3"], ["T4", "T5", "T6"],
+    ["T7", "T8", "T9"], ["T10", "T11", "T12"],
+]
+
 
 const tableMonth = [
     ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
@@ -129,7 +139,7 @@ function createCalendar() {
                     column.classList.add("table-today");
                 }
                 column.addEventListener("click", () => {
-                    datePick.value = `${column.textContent}/${thisMonth+1}/${thisYear}`;
+                    datePick.value = `${('0' + column.textContent).slice(-2)}/${('0' + (thisMonth+1)).slice(-2)}/${thisYear}`;
                 });
                 row.appendChild(column);
                 dateCount++;
@@ -139,7 +149,7 @@ function createCalendar() {
     }
 }
 
-function preMonth() {
+function prevMonth() {
     const prevMonth = document.querySelector(".bg-datepick .prev-month");
 
     prevMonth.addEventListener("click", () => {
@@ -283,6 +293,55 @@ function swiperSlider() {
     });
 }
 
+function monthYearCalendar() {
+    yearCalendar.innerHTML = `${thisYear}`;
+
+   
+
+    $('.item-month tr td').click(function() {
+        var data = $(this).html();
+        var replace_date = data.replace('T', '');
+        datePickMonth.value = `${('0' + (replace_date)).slice(-2)}/${thisYear}`;
+    });
+}
+
+function prevYear() {
+    const prevYear = document.querySelector(".date-box .prev-year");
+
+    prevYear.addEventListener("click", () => {
+        thisYear = thisYear - 1;        
+
+        monthYearCalendar();
+        return thisYear;
+    });
+}
+
+function nextYear() {
+    const nextYear = document.querySelector(".date-box .next-year");
+
+    nextYear.addEventListener("click", () => {
+        thisYear = thisYear + 1;        
+
+        monthYearCalendar();
+        return thisYear;
+    });
+}
+
+function clickButtonCalendar() {
+    // Date 
+    const bgDatepick = document.querySelector('#js-payment-03 .date-box');
+    const buttonDate = document.querySelector('#js-payment-03 .button-date');
+    
+    buttonDate.addEventListener("click", () => {
+        bgDatepick.classList.toggle("active");
+    });
+
+    const cancelButton = document.getElementById('js-cancel-button');
+    cancelButton.addEventListener('click', () => {
+        bgDatepick.classList.remove("active");
+    });
+}
+
 /**
  * Show Function
  */
@@ -301,7 +360,7 @@ if(document.getElementById('js-form-index')) {
 
 if(document.getElementById('js-datepick')) {
     createCalendar();
-    preMonth();
+    prevMonth();
     nextMonth();
 }
 
@@ -311,4 +370,11 @@ if(document.getElementById('js-form-contact')) {
 
 if(document.getElementById('js-slider-event') || document.getElementById('js-slider-success')) {
     swiperSlider();
+}
+
+if(document.getElementById('js-payment-03')) {
+    clickButtonCalendar();
+    monthYearCalendar();
+    prevYear();
+    nextYear();
 }

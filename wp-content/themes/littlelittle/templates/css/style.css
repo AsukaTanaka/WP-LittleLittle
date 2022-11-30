@@ -1126,6 +1126,92 @@ textarea {
     padding-right: 0;
 }
 
+.site-section .row-section-payment .col-active-dot.col-section-03 .form .date-box {
+    background-color: #ffffff;
+    width: 200px;
+    color: #23221f;
+    overflow: hidden;
+    font-size: 0.8rem;
+    position: absolute;
+    z-index: 50;
+    border-radius: 10px;
+    padding: 4px 8px 8px;
+    opacity: 0;
+    display: none;
+    max-height: 0;
+    top: 75px;
+}
+
+.site-section .row-section-payment .col-active-dot.col-section-03 .form .date-box.active {
+    opacity: 1;
+    display: block;
+    max-height: 300px;
+}
+
+.site-section .row-section-payment .content .form .date-box i.bx-chevron-left {
+    padding-right: .25rem;
+}
+
+.site-section .row-section-payment .content .form .date-box i.bx-chevron-right {
+    padding-left: .25rem;
+}
+
+.site-section .row-section-payment .content .form .calendar-body {
+    display: flex;
+    justify-content: space-between;
+    float: left;
+    padding: .6rem 0 .75rem;
+}
+
+.site-section .row-section-payment .content .form .calendar-body h4 {
+    font-weight: 700;
+    font-size: .85rem;
+}
+
+.site-section .row-section-payment .content .form .calendar-body i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.site-section .row-section-payment .content .form .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    float: right;
+}
+
+.site-section .row-section-payment .content .form .calendar-header {
+    padding: .75rem .25rem 0.3rem;
+    border-bottom: 1px solid #CACACA;
+}
+
+.site-section .row-section-payment .content .form .calendar-header a {
+    cursor: pointer;
+    color: var(--orange);
+    font-weight: bolder;
+}
+
+.site-section .row-section-payment .content .form .date-box .table-calendar {
+    width: 100%;
+    text-align: center;
+    font-size: .675rem;
+}
+
+.site-section .row-section-payment .content .form .date-box .table-calendar tbody td {
+    cursor: pointer;
+    border: 1px solid transparent;
+    padding: 5px;
+}
+
+.site-section .row-section-payment .content .form .date-box .table-calendar tbody td:hover {
+    background-color: #eeeeee;
+}
+
+
 /* Success */
 
 .site-section .row-section-success .col-section-02 .content {
@@ -1425,11 +1511,13 @@ textarea {
     font-family: montserrat-medium !important;
     border-radius: 14px !important; 
 }
+
 .swal2-html-container {
     margin: 0 !important;
     background: transparent;
     border-radius: 14px 14px 0 0;
 }
+
 .swal2-html-container .alert-message-contact {
     position: relative;
     text-align: left !important;
@@ -1437,20 +1525,24 @@ textarea {
     width: 100%;
     background-color: #FFFFFF;
 }
+
 .swal2-html-container .alert-message-contact > p.sa2-text {
     margin: 0 !important;
     font-size: 0.9rem !important;
     line-height: 1.25 !important;
 }
+
 .swal2-html-container .alert-message-contact.success-contact {
     padding: 30px 30px 5px !important;
 }
+
 .swal2-html-container .alert-error-contact {
     margin-bottom: 0rem !important;
     background-color: #FF8B15;
     width: 100%;
     height: 50px;
 }
+
 .swal2-html-container .alert-error-contact img {
     margin: 0 auto;
     position: absolute;
@@ -1460,6 +1552,7 @@ textarea {
     width: 4.5rem;
     height: 4.5rem;
 }
+
 .swal2-close {
     color: #FF8A00 !important;
     font-size: 1.5rem !important; 
@@ -1469,6 +1562,7 @@ textarea {
     top: 5px !important;
     right: 5px !important;
 }
+
 .swal2-close:focus {
     box-shadow: none !important;
 }
@@ -1477,6 +1571,8 @@ textarea {
     width: 100% !important;
     height: auto !important;
 }
+
+
 
 /**
  * Media Screen

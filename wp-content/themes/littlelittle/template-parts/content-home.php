@@ -141,7 +141,7 @@ if(empty($select)) {
                                                         <input type="text" name="input-date" id="js-datepick" class="input-text">
                                                         <div class="bg-datepick" id="js-calendar">
                                                             <div class="calendar-header">
-                                                                <i class="bx bx-chevron-left prev-month" id="js-pre-month"></i>
+                                                                <i class="bx bx-chevron-left prev-month" id="js-prev-month"></i>
                                                                 <h4 class="month-calendar" id="js-month-calendar"></h4>
                                                                 <i class="bx bx-chevron-right next-month" id="js-next-month"></i>
                                                             </div>
@@ -216,7 +216,7 @@ if(empty($select)) {
         $error = array();
         date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-        $get_id_package =  $wpdb->get_results("SELECT * FROM $table__package WHERE package = '$package'");
+        $get_id_package =  $wpdb->get_results("SELECT * FROM $table__package WHERE `package` = '$package'");
         $create_url = uniqid();
 
         $base64 = base64_encode($create_url);
@@ -226,14 +226,12 @@ if(empty($select)) {
         } else {
             if(empty($select) || empty(trim($package))) {
                 $error['message']['package'] = 'Chưa có loại gói, không thể tạo vé!';
-                ?>
-                <?php
             } else if(!filter_var(trim($email), FILTER_VALIDATE_EMAIL) || !preg_match('/^\+?[0-9]{10}$/', $phone) || !is_numeric($amount)) {
                 $error['message']['filter'] = 'Thông tin không hợp lệ, vui lòng kiểm tra lại!';
             } else if (filter_var($amount, FILTER_VALIDATE_INT, array("options" => array("min_range" => 1))) === false) {
                 $error['message']['amount'] = 'Số lượng phải từ 1 trở lên!';
-            } else if($date < $currentDate) {
-                $error['message']['datetime'] = 'Ngày sử dụng phải từ hôm nay trở đi!';
+            // } else if($date < $currentDate) {
+            //     $error['message']['datetime'] = 'Ngày sử dụng phải từ hôm nay trở đi!';
             }
         }
 
