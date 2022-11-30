@@ -239,22 +239,22 @@ if(empty($select)) {
 
             $_SESSION['base64'] = $base64;
 
-            $wpdb->insert($table__ticket, array(
-                'fullname' => $fullname,
-                'phone' => $phone,
-                'email' => $email,
-                'amount' => $amount,
-                'start_use' => $date,
-                'create_at' => date('j/n/Y - g:i a'),
-                'status' => $status,
-                'base64' =>  $base64,
-                'package_id' => $get_id_package[0]->id,
-            ));
+            // $wpdb->insert($table__ticket, array(
+            //     'fullname' => $fullname,
+            //     'phone' => $phone,
+            //     'email' => $email,
+            //     'amount' => $amount,
+            //     'start_use' => $date,
+            //     'create_at' => date('j/n/Y - g:i a'),
+            //     'status' => $status,
+            //     'base64' =>  $base64,
+            //     'package_id' => $get_id_package[0]->id,
+            // ));
             ?>
             
-            <script type="text/javascript">
-                window.location = '<?php echo home_url() . '/payment?b=' . $base64 ?>';
-            </script>
+            <!-- <script type="text/javascript">
+                window.location = '<?php //echo home_url() . '/payment?b=' . $base64 ?>';
+            </script> -->
 
             <?php
         } else {
