@@ -139,7 +139,7 @@ if(isset($_GET['b'])) {
                                                 <input type="text" name="input-expiry-date" id="js-datepick-month" class="input-text" readonly>
                                                 <div class="date-box" id="js-month-year">
                                                     <div class="calendar-header">
-                                                        <a class="cancel-button" id="js-cancel-button">Huỷ</a>
+                                                        <a class="cancel-button" id="js-cancel-button">Đóng</a>
                                                         <!-- <a class="set-button" id="js-set-button">Đặt</a> -->
                                                     </div>
                                                     <div class="calendar-body">
