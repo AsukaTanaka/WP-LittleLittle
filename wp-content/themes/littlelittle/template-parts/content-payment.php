@@ -127,16 +127,16 @@ if(isset($_GET['b'])) {
                                     <div class="row">
                                         <div class="col-12 col-md-12">
                                             <label for="">Số thẻ</label>
-                                            <input type="text" name="input-card" id="card" class="input-text">
+                                            <input type="text" name="input-card" id="card" class="input-text" value="<?php echo (!empty($_POST['input-card'])) ? $_POST['input-card'] : false; ?>">
                                         </div>
                                         <div class="col-12 col-md-12">
                                             <label for="">Họ và tên chủ thẻ</label>
-                                            <input type="text" name="input-cardhold" id="cardhold" class="input-text">
+                                            <input type="text" name="input-cardhold" id="cardhold" class="input-text" value="<?php echo (!empty($_POST['input-cardhold'])) ? $_POST['input-cardhold'] : false; ?>">
                                         </div>
                                         <div class="col-12 col-md-12">
                                             <label for="">Ngày hết hạn</label>
                                             <div class="inline-form">
-                                                <input type="text" name="input-expiry-date" id="js-datepick-month" class="input-text" readonly>
+                                                <input type="text" name="input-expiry-date" id="js-datepick-month" class="input-text" readonly value="<?php echo (!empty($_POST['input-expiry-date'])) ? $_POST['input-expiry-date'] : false; ?>">
                                                 <div class="date-box" id="js-month-year">
                                                     <div class="calendar-header">
                                                         <a class="cancel-button" id="js-cancel-button">Đóng</a>
@@ -179,7 +179,7 @@ if(isset($_GET['b'])) {
                                         </div>
                                         <div class="col-12 col-md-12">
                                             <label for="">CVV/CVC</label>
-                                            <input type="text" name="input-cvv-cvc" id="cvv-cvc" class="input-text">
+                                            <input type="text" name="input-cvv-cvc" id="cvv-cvc" class="input-text" value="<?php echo (!empty($_POST['input-cvv-cvc'])) ? $_POST['input-cvv-cvc'] : false; ?>">
                                         </div>
                                         <div class="col-12 col-md-12">
                                             <div class="button-form">
@@ -203,6 +203,8 @@ if(isset($_GET['b'])) {
         </div>
     </section>
     <!-- Section End -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <?php 
 
     if(isset($_POST['create-payment'])) {
@@ -210,8 +212,40 @@ if(isset($_GET['b'])) {
         $cardholder_name = $_POST['input-cardhold'];
         $expiry_date = $_POST['input-expiry-date'];
         $cvv_cvc = $_POST['input-cvv-cvc'];
+        $error_msg = array();
+
+        if(empty(trim($card_number)) || empty(trim($cardholder_name)) || empty(trim($expiry_date)) || empty(trim($cvv_cvc))) {
+            $error_msg['message']['required'] = 'Vui lòng điền đầy đủ thông tin!';
+        } else {
+            if(!preg_match('/^\+?[0-9]{3}$/', $cvv_cvc) || !preg_match('/^\+?[0-9]{16}$/', $card_number)) {
+                $error_msg['message']['filter'] = 'Thông tin không hợp lệ, vui lòng kiểm tra lại!';
+            }
+        }
+        
+        if(empty($error_msg)) {
+            
+        } else {
+            ?>
+            <script type="text/javascript">
+            Swal.fire({
+                html:
+                    '<div class="alert-error-contact">' +
+                    '<img src="<?php echo get_template_directory_uri() . "/templates/images/icon/error.png" ?>" alt="">' + '</div>' +
+                    '<div class="alert-message-contact">' +
+                    '<p class="sa2-text"><?php echo (!empty($error_msg['message']['required'])) ? $error_msg['message']['required'] : false; echo (!empty($error_msg['message']['filter'])) ? $error_msg['message']['filter'] : false; ?></p>'
+                    + '</div>',
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false,
+            }).then((result) => { 
+                /* return */
+            });
 
 
+            </script>
+            <?php
+        }
+     
 
     }
 

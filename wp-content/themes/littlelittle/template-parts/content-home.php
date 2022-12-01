@@ -96,7 +96,7 @@ if(empty($select)) {
                                         <div class="col-12 col-md-12">
                                             <div class="inline-form">
                                                 <div class="select-box">
-                                                    <input type="text" name="input-package" id="package" class="input-text">
+                                                    <input type="text" name="input-package" id="package" class="input-text" value="<?php echo (!empty($_POST['input-package'])) ? $_POST['input-package'] : false; ?>">
                                                     <?php 
                                                         if(!empty($error__package['package']['empty'])) {
                                                             ?>
@@ -136,9 +136,9 @@ if(empty($select)) {
                                         <div class="col-12 col-md-12">
                                             <div class="inline-form">
                                                 <div class="date-box">
-                                                    <input type="text" name="input-amount" id="amount" class="input-text input-number input-60">
+                                                    <input type="text" name="input-amount" id="amount" class="input-text input-number input-60" value="<?php echo (!empty($_POST['input-amount'])) ? $_POST['input-amount'] : false; ?>">
                                                     <div class="form-date">
-                                                        <input type="text" name="input-date" id="js-datepick" class="input-text">
+                                                        <input type="text" name="input-date" id="js-datepick" class="input-text" value="<?php echo (!empty($_POST['input-date'])) ? $_POST['input-date'] : false; ?>">
                                                         <div class="bg-datepick" id="js-calendar">
                                                             <div class="calendar-header">
                                                                 <i class="bx bx-chevron-left prev-month" id="js-prev-month"></i>
@@ -168,13 +168,13 @@ if(empty($select)) {
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-12">
-                                            <input type="text" name="input-fullname" id="fullname" class="input-text">
+                                            <input type="text" name="input-fullname" id="fullname" class="input-text" value="<?php echo (!empty($_POST['input-fullname'])) ? $_POST['input-fullname'] : false; ?>">
                                         </div>
                                         <div class="col-12 col-md-12">
-                                            <input type="text" name="input-phone" id="phone" class="input-text">
+                                            <input type="text" name="input-phone" id="phone" class="input-text" value="<?php echo (!empty($_POST['input-phone'])) ? $_POST['input-phone'] : false; ?>">
                                         </div>
                                         <div class="col-12 col-md-12">
-                                            <input type="text" name="input-email" id="email" class="input-text">
+                                            <input type="text" name="input-email" id="email" class="input-text" value="<?php echo (!empty($_POST['input-email'])) ? $_POST['input-email'] : false; ?>">
                                         </div>
                                         <div class="col-12 col-md-12">
                                             <div class="button-form">
@@ -193,14 +193,6 @@ if(empty($select)) {
     <!-- Section End -->
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript">
-    const valueFullname = document.querySelector('#js-form-index #fullname');
-    const valuePhone = document.querySelector('#js-form-index #phone');
-    const valueEmail = document.querySelector('#js-form-index #email');
-    const valuePackage = document.querySelector('#js-form-index #package');
-    const valueAmount = document.querySelector('#js-form-index #amount');
-    const valueDatepick = document.querySelector('#js-form-index #js-datepick');
-</script>
 <?php 
     if(isset($_POST['create-ticket'])) {
         $package = $_POST['input-package'];
@@ -239,22 +231,22 @@ if(empty($select)) {
 
             $_SESSION['base64'] = $base64;
 
-            // $wpdb->insert($table__ticket, array(
-            //     'fullname' => $fullname,
-            //     'phone' => $phone,
-            //     'email' => $email,
-            //     'amount' => $amount,
-            //     'start_use' => $date,
-            //     'create_at' => date('j/n/Y - g:i a'),
-            //     'status' => $status,
-            //     'base64' =>  $base64,
-            //     'package_id' => $get_id_package[0]->id,
-            // ));
+            $wpdb->insert($table__ticket, array(
+                'fullname' => $fullname,
+                'phone' => $phone,
+                'email' => $email,
+                'amount' => $amount,
+                'start_use' => $date,
+                'create_at' => date('j/n/Y - g:i a'),
+                'status' => $status,
+                'base64' =>  $base64,
+                'package_id' => $get_id_package[0]->id,
+            ));
             ?>
             
-            <!-- <script type="text/javascript">
-                window.location = '<?php //echo home_url() . '/payment?b=' . $base64 ?>';
-            </script> -->
+            <script type="text/javascript">
+                window.location = '<?php echo home_url() . '/payment?b=' . $base64 ?>';
+            </script>
 
             <?php
         } else {
@@ -274,12 +266,7 @@ if(empty($select)) {
                 /* return */
             });    
             /* get value without return sweetalert */
-            valueFullname.value = '<?php echo (!empty($_POST['input-fullname'])) ? $_POST['input-fullname'] : false; ?>';
-            valuePhone.value = '<?php echo (!empty($_POST['input-phone'])) ? $_POST['input-phone'] : false; ?>';
-            valueEmail.value = '<?php echo (!empty($_POST['input-email'])) ? $_POST['input-email'] : false; ?>';
-            valuePackage.value = '<?php echo (!empty($_POST['input-package'])) ? $_POST['input-package'] : false; ?>';
-            valueAmount.value = '<?php echo (!empty($_POST['input-amount'])) ? $_POST['input-amount'] : false; ?>';
-            valueDatepick.value = '<?php echo (!empty($_POST['input-date'])) ? $_POST['input-date'] : false; ?>';
+    
         </script>
             <?php
         }
