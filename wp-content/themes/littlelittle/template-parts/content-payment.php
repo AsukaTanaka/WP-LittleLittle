@@ -1,4 +1,10 @@
 <?php 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/SMTP.php';
 
 if(isset($_GET['b'])) {
     global $wpdb;
@@ -13,13 +19,16 @@ if(isset($_GET['b'])) {
     $select = $wpdb->get_results("SELECT * FROM $table__name WHERE `base64` = '$id'");
     
     
-    if(empty($select[0]->base64) || $select[0]->base64 != $id || $base64 != $id) {
-        $error['base64']['check'] = "Lỗi 404 !";
+    if(empty($select[0]->base64) || $select[0]->base64 != $id || $base64 != $id || $select[0]->status == false) {
+        $error['base64']['check'] = "Không có kết quả !";
     } else {
 
      
 
     }
+
+    $phpmailer = new PHPMailer();
+
 
 ?>
 
@@ -221,9 +230,43 @@ if(isset($_GET['b'])) {
                 $error_msg['message']['filter'] = 'Thông tin không hợp lệ, vui lòng kiểm tra lại!';
             }
         }
-        
+
+
+
+
         if(empty($error_msg)) {
+
+            $phpmailer->SMTPDebug = 0;
+            $phpmailer->isSMTP();
+            $phpmailer->Host = SMTP_HOST;
+            $phpmailer->SMTPAuth = SMTP_AUTH;
+            $phpmailer->Username = SMTP_USER;
+            $phpmailer->Password = SMTP_PASS;
+            $phpmailer->SMTPSecure = SMTP_SECURE;
+            $phpmailer->Port = SMTP_PORT;
+    
+            $phpmailer->setFrom(SMTP_USER);
+            $phpmailer->addAddress($select[0]->email);
+            $phpmailer->isHTML(true);
+
+            ?>
+            <!-- <script type="text/javascript">
+                Swal.fire({
+                    html:
+                        '<div class="alert-message-contact success-contact">' +
+                        '<p class="sa2-text">Thanh toán thành công</p>' +
+                        '<p class="sa2-text">Vui lòng kiểm tra email của bạn!</p>' + '</div>',
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    focusConfirm: false,
+                }).then((result) => { 
+                    window.location = '<?php //echo home_url() . '/home' ?>';
+                }); 
+            </script> -->
+            <?php
             
+
         } else {
             ?>
             <script type="text/javascript">
