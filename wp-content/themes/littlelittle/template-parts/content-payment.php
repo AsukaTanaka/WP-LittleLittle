@@ -249,6 +249,31 @@ if(isset($_GET['b'])) {
             $phpmailer->addAddress($select[0]->email);
             $phpmailer->isHTML(true);
 
+            $phpmailer->setFrom(SMTP_USER);
+            $phpmailer->addAddress($email);
+            $phpmailer->isHTML(true);
+    
+            ob_start();
+            include 'content-mail-success.php';
+            $body = ob_get_contents();
+            $body = str_replace('{get_email}', $select[0]->email, $body);
+            $body = str_replace('{get_qrcode}', '', $body);
+
+            $phpmailer->Body = $body;
+            ob_get_clean();
+
+            if($phpmailer->send()) {
+                // $wpdb->update(
+                //     $table__name,
+                //     array(
+                //         'status' => true,
+                //     ),
+                //     array('id' => $select[0]->id)
+                // );
+
+
+            }
+
             ?>
             <!-- <script type="text/javascript">
                 Swal.fire({
