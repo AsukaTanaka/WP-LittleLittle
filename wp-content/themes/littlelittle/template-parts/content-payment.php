@@ -5,25 +5,34 @@ use PHPMailer\PHPMailer\Exception;
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/SMTP.php';
+require 'phpqrcode/qrlib.php';
 
 if(isset($_GET['b'])) {
+
     global $wpdb;
     $id = $_GET['b'];
     $error = array();
 
     $base64 = $_SESSION['base64'];
 
+    if(empty($base64)) {
+        ?>
+        <script type="text/javascript">
+            window.location = '<?php echo home_url() . '/home' ?>';
+        </script>
+        <?php
+    }
+
     $table__name = $wpdb->prefix . 'ticket';
     $table__package = $wpdb->prefix . 'package';
+    $table__bill = $wpdb->prefix . 'bill';
 
     $select = $wpdb->get_results("SELECT * FROM $table__name WHERE `base64` = '$id'");
     
     
-    if(empty($select[0]->base64) || $select[0]->base64 != $id || $base64 != $id || $select[0]->status == false) {
+    if(empty($select[0]->base64) || $select[0]->base64 != $id || $base64 != $id || $select[0]->status === false) {
         $error['base64']['check'] = "Không có kết quả !";
     } else {
-
-     
 
     }
 
@@ -250,29 +259,51 @@ if(isset($_GET['b'])) {
             $phpmailer->isHTML(true);
 
             $phpmailer->setFrom(SMTP_USER);
-            $phpmailer->addAddress($email);
+            $phpmailer->addAddress($select[0]->email);
             $phpmailer->isHTML(true);
     
-            ob_start();
-            include 'content-mail-success.php';
-            $body = ob_get_contents();
-            $body = str_replace('{get_email}', $select[0]->email, $body);
-            $body = str_replace('{get_qrcode}', '', $body);
+            // $qrcode = uniqid();
+            // $qrcode_image = $qrcode.".png";
+            // $folderPath = "qrcode/";
+            // $qual = 'H';
+            // $padding = 0;
+            // $size = 6;
+            
+            // QRcode :: png($qrcode, $folderPath, $qrcode_image, $qual, $size, $padding);
 
-            $phpmailer->Body = $body;
-            ob_get_clean();
+            // ob_start();
+            // include 'content-mail-success.php';
+            // $body = ob_get_contents();
+            // $body = str_replace('{get_email}', $select[0]->email, $body);
+            // $body = str_replace('{get_email_url}', str_replace('@gmail.com', '', $select[0]->email), $body);
+            // $body = str_replace('{get_qrcode}', $qrcode_image, $body);
 
-            if($phpmailer->send()) {
-                // $wpdb->update(
-                //     $table__name,
-                //     array(
-                //         'status' => true,
-                //     ),
-                //     array('id' => $select[0]->id)
-                // );
+            // $phpmailer->Body = $body;
+            // ob_get_clean();
 
 
-            }
+    
+            // $target_path = ABSPATH . $folderPath . "/" . $qrcode_image;
+
+            // if($phpmailer->send()) {
+                
+            //     // $_SESSION['email'] =  $select[0]->email;
+
+            //     $wpdb->insert($table__bill, array(
+            //         'qrcode' => $qrcode_image,
+            //         'start_date' => $select[0]->start_use,
+            //         'ticket_id' => $select[0]->id
+            //     ));
+
+            //     $wpdb->update(
+            //         $table__name,
+            //         array(
+            //             'status' => true,
+            //         ),
+            //         array('id' => $select[0]->id)
+            //     );
+
+            // }
 
             ?>
             <!-- <script type="text/javascript">
@@ -318,6 +349,7 @@ if(isset($_GET['b'])) {
     }
 
 } else {
+
     ?>
     <script type="text/javascript">
         window.location = '<?php echo home_url() . '/home' ?>';

@@ -25,6 +25,7 @@ class GET__PLUGIN__FUNCTION {
      * Ticket Table
      */
 
+
     public static function ADD__TICKET()
     {
         global $wpdb;
@@ -40,8 +41,6 @@ class GET__PLUGIN__FUNCTION {
             `create_at` varchar(255),
             `status` boolean,
             `base64` text,
-            `package_id` int(11) NOT NULL,
-            FOREIGN KEY (package_id) REFERENCES $table__name(id),
             PRIMARY KEY (id)
         )$charset__collate;";
         require_once(ABSPATH . '/wp-admin/includes/upgrade.php');
@@ -60,32 +59,32 @@ class GET__PLUGIN__FUNCTION {
      * Payment Table
      */
 
-    public static function ADD__PAYMENT()
-    {
-        global $wpdb;
-        $charset__collate = $wpdb->get_charset_collate();
-        $table__name = $wpdb->prefix . 'payment';
-        $sql = "CREATE TABLE $table__name (
-            `id` int(11) NOT NULL AUTO_INCREMENT,
-            `card_number` varchar(255),
-            `cardholder_name` varchar(255),
-            `expiry_date` varchar(10),
-            `ccv_cvc` varchar(3),
-            `ticket_id` int(11) NOT NULL,
-            FOREIGN KEY (ticket_id) REFERENCES $table__name(id),
-            PRIMARY KEY (id)
-        )$charset__collate;";
-        require_once(ABSPATH . '/wp-admin/includes/upgrade.php');
-        dbDelta($sql);
-    }
+    // public static function ADD__PAYMENT()
+    // {
+    //     global $wpdb;
+    //     $charset__collate = $wpdb->get_charset_collate();
+    //     $table__name = $wpdb->prefix . 'payment';
+    //     $sql = "CREATE TABLE $table__name (
+    //         `id` int(11) NOT NULL AUTO_INCREMENT,
+    //         `card_number` varchar(255),
+    //         `cardholder_name` varchar(255),
+    //         `expiry_date` varchar(10),
+    //         `ccv_cvc` varchar(3),
+    //         `ticket_id` int(11) NOT NULL,
+    //         FOREIGN KEY (ticket_id) REFERENCES $table__name(id),
+    //         PRIMARY KEY (id)
+    //     )$charset__collate;";
+    //     require_once(ABSPATH . '/wp-admin/includes/upgrade.php');
+    //     dbDelta($sql);
+    // }
 
-    public static function REMOVE__PAYMENT()
-    {
-        global $wpdb;
-        $table__name = $wpdb->prefix . 'payment';
-        $sql = "DROP TABLE IF EXISTS $table__name";
-        $wpdb->query($sql);
-    }
+    // public static function REMOVE__PAYMENT()
+    // {
+    //     global $wpdb;
+    //     $table__name = $wpdb->prefix . 'payment';
+    //     $sql = "DROP TABLE IF EXISTS $table__name";
+    //     $wpdb->query($sql);
+    // }
 
     /**
      * Bill Table
@@ -96,14 +95,11 @@ class GET__PLUGIN__FUNCTION {
         global $wpdb;
         $charset__collate = $wpdb->get_charset_collate();
         $table__name = $wpdb->prefix . 'bill';
+        // $table__ticket = $wpdb->prefix . 'ticket';
         $sql = "CREATE TABLE $table__name (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `qrcode` text,
             `start_date` varchar(255),
-            `payment_id` int(11) NOT NULL,
-            `ticket_id` int(11) NOT NULL,
-            FOREIGN KEY (payment_id) REFERENCES $table__name(id),
-            FOREIGN KEY (ticket_id) REFERENCES $table__name(id),
             PRIMARY KEY (id)
         )$charset__collate;";
         require_once(ABSPATH . '/wp-admin/includes/upgrade.php');
@@ -217,7 +213,7 @@ class GET__PLUGIN__FUNCTION {
  * Get Activation
  */
 register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__TICKET'));
-register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__PAYMENT'));
+// register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__PAYMENT'));
 register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__BILL'));
 register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__EVENT'));
 register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__CONTACT'));
@@ -229,7 +225,7 @@ register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'ADD__PA
  */
 
 register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__TICKET'));
-register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__PAYMENT'));
+// register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__PAYMENT'));
 register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__BILL'));
 register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__EVENT'));
 register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'REMOVE__CONTACT'));
