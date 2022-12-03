@@ -41,6 +41,7 @@ class GET__PLUGIN__FUNCTION {
             `create_at` varchar(255),
             `status` boolean,
             `base64` text,
+            `package_id` int(11) NOT NULL,
             PRIMARY KEY (id)
         )$charset__collate;";
         require_once(ABSPATH . '/wp-admin/includes/upgrade.php');
@@ -100,6 +101,8 @@ class GET__PLUGIN__FUNCTION {
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `qrcode` text,
             `start_date` varchar(255),
+            `email` varchar(255),
+            `ticket_id` int(11) NOT NULL,
             PRIMARY KEY (id)
         )$charset__collate;";
         require_once(ABSPATH . '/wp-admin/includes/upgrade.php');

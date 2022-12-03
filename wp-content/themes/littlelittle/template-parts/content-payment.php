@@ -13,16 +13,6 @@ if(isset($_GET['b'])) {
     $id = $_GET['b'];
     $error = array();
 
-    $base64 = $_SESSION['base64'];
-
-    if(empty($base64)) {
-        ?>
-        <script type="text/javascript">
-            window.location = '<?php echo home_url() . '/home' ?>';
-        </script>
-        <?php
-    }
-
     $table__name = $wpdb->prefix . 'ticket';
     $table__package = $wpdb->prefix . 'package';
     $table__bill = $wpdb->prefix . 'bill';
@@ -30,7 +20,7 @@ if(isset($_GET['b'])) {
     $select = $wpdb->get_results("SELECT * FROM $table__name WHERE `base64` = '$id'");
     
     
-    if(empty($select[0]->base64) || $select[0]->base64 != $id || $base64 != $id || $select[0]->status === false) {
+    if(empty($select[0]->base64) || $select[0]->base64 != $id) {
         $error['base64']['check'] = "Không có kết quả !";
     } else {
 
@@ -262,51 +252,63 @@ if(isset($_GET['b'])) {
             $phpmailer->addAddress($select[0]->email);
             $phpmailer->isHTML(true);
     
-            // $qrcode = uniqid();
-            // $qrcode_image = $qrcode.".png";
-            // $folderPath = "qrcode/";
-            // $qual = 'H';
-            // $padding = 0;
-            // $size = 6;
+            $folderPath = ABSPATH."/wp-uploads/files/qrcode/";
+            $get_uniquid = uniqid();
+            $qrcode = $folderPath.$get_uniquid.'.png';
+            $qrcode_image = $get_uniquid.'.png';
+
+            $qual = 'H';
+            $padding = 0;
+            $size = 4;
+
+            $get_text_qrcode = $select[0]->fullname . '--';
+            $get_text_qrcode = 'Gói: ' .  trim($get_package[0]->package, $str) . '--';
+            $get_text_qrcode .= 'Vé: ' . $select[0]->id . '--';
+            $get_text_qrcode .= 'Số Lượng: '. $select[0]->amount . '--';
+            $get_text_qrcode .= 'Ngày Sử Dụng: ' . $select[0]->start_use . '--';
+            $get_text_qrcode .= 'Số Tiền: ' . number_format($get_salary, 0, '', '.') . ' VNĐ ';
             
-            // QRcode :: png($qrcode, $folderPath, $qrcode_image, $qual, $size, $padding);
+            QRcode::png($get_text_qrcode, $qrcode, $qual, $size, $padding, true);
 
-            // ob_start();
-            // include 'content-mail-success.php';
-            // $body = ob_get_contents();
-            // $body = str_replace('{get_email}', $select[0]->email, $body);
-            // $body = str_replace('{get_email_url}', str_replace('@gmail.com', '', $select[0]->email), $body);
+            ob_start();
+            include 'content-mail-success.php';
+
+            $phpmailer->addAttachment(get_site_url() . '/wp-uploads/files/qrcode/'. $qrcode_image, $qrcode_image);
+
+            $body = ob_get_contents();
+            $body = str_replace('{get_email}', $select[0]->email, $body);
             // $body = str_replace('{get_qrcode}', $qrcode_image, $body);
-
-            // $phpmailer->Body = $body;
-            // ob_get_clean();
-
-
-    
+            $body = str_replace('{get_url_email}', base64_encode($select[0]->email), $body);
+            $phpmailer->Body = $body;
+            ob_get_clean();
+        
             // $target_path = ABSPATH . $folderPath . "/" . $qrcode_image;
 
-            // if($phpmailer->send()) {
+            if($phpmailer->send()) {
                 
-            //     // $_SESSION['email'] =  $select[0]->email;
+                // $_SESSION['email'] =  $select[0]->email;
 
-            //     $wpdb->insert($table__bill, array(
-            //         'qrcode' => $qrcode_image,
-            //         'start_date' => $select[0]->start_use,
-            //         'ticket_id' => $select[0]->id
-            //     ));
+                $get_ticket_id = $select[0]->id;
 
-            //     $wpdb->update(
-            //         $table__name,
-            //         array(
-            //             'status' => true,
-            //         ),
-            //         array('id' => $select[0]->id)
-            //     );
+                $wpdb->insert($table__bill, array(
+                    'qrcode' => $qrcode_image,
+                    'start_date' => $select[0]->start_use,
+                    'email' => base64_encode($select[0]->email),
+                    'ticket_id' => $get_ticket_id,
+                ));
 
-            // }
+                $wpdb->update(
+                    $table__name,
+                    array(
+                        'status' => true,
+                    ),
+                    array('id' => $get_ticket_id)
+                );
+
+            }
 
             ?>
-            <!-- <script type="text/javascript">
+            <script type="text/javascript">
                 Swal.fire({
                     html:
                         '<div class="alert-message-contact success-contact">' +
@@ -317,9 +319,9 @@ if(isset($_GET['b'])) {
                     showConfirmButton: false,
                     focusConfirm: false,
                 }).then((result) => { 
-                    window.location = '<?php //echo home_url() . '/home' ?>';
+                    window.location = '<?php echo home_url() . '/home' ?>';
                 }); 
-            </script> -->
+            </script>
             <?php
             
 

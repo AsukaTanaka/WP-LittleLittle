@@ -208,7 +208,8 @@ if(empty($select)) {
         $error = array();
         date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-        $get_id_package =  $wpdb->get_results("SELECT * FROM $table__package WHERE `package` = '$package'");
+       
+        
         $create_url = uniqid();
 
         $base64 = base64_encode($create_url);
@@ -228,9 +229,9 @@ if(empty($select)) {
         }
 
         if(empty($error)) {
-
-            $_SESSION['base64'] = $base64;
-
+            $get_id_package =  $wpdb->get_results("SELECT * FROM $table__package WHERE `package` = '$package'");
+            $package_id = $get_id_package[0]->id;
+            
             $wpdb->insert($table__ticket, array(
                 'fullname' => $fullname,
                 'phone' => $phone,
@@ -240,7 +241,7 @@ if(empty($select)) {
                 'create_at' => date('j/n/Y - g:i a'),
                 'status' => $status,
                 'base64' =>  $base64,
-                'package_id' => $get_id_package[0]->id,
+                'package_id' => $package_id,
             ));
             ?>
             
