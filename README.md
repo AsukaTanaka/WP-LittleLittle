@@ -6,6 +6,7 @@
 - Admin Username: admin 
 - Admin Password: v*@$lfMDCYyHZh0YdM
 - Database Name: wp_little_db 
+
 *Note*: After plugin, remember to add foreign keys for 2 tables wp_ticket and wp_bill because not completely fixed yet
 
 __________ Currently the code on github will be removed for future upgrades and more logic __________
